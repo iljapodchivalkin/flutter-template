@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:flutter_template/navigator/onboarding_navigator.dart';
 import 'package:flutter_template/repository/shared_prefs/local/local_storage.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
@@ -23,8 +22,6 @@ class AnalyticsPermissionViewModel with ChangeNotifierEx {
 
   Future<void> onAcceptClicked() async {
     await _localStorage.updateHasAnalyticsPermission(true);
-    await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     await _onboardingNavigator.goToNextScreen();
   }
 

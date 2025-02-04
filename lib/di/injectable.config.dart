@@ -10,10 +10,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:drift/drift.dart' as _i500;
-import 'package:firebase_analytics/firebase_analytics.dart' as _i398;
-import 'package:firebase_crashlytics/firebase_crashlytics.dart' as _i141;
-import 'package:firebase_remote_config/firebase_remote_config.dart' as _i627;
-import 'package:firebase_storage/firebase_storage.dart' as _i457;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:flutter_template/database/flutter_template_database.dart'
     as _i327;
@@ -21,8 +17,6 @@ import 'package:flutter_template/database/todo/todo_dao_storage.dart' as _i661;
 import 'package:flutter_template/di/injectable.dart' as _i480;
 import 'package:flutter_template/navigator/main_navigator.dart' as _i861;
 import 'package:flutter_template/navigator/onboarding_navigator.dart' as _i76;
-import 'package:flutter_template/repository/analytics/firebase_analytics_repository.dart'
-    as _i192;
 import 'package:flutter_template/repository/debug/debug_repository.dart'
     as _i380;
 import 'package:flutter_template/repository/locale/locale_repository.dart'
@@ -120,23 +114,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i1069.NetworkLogInterceptor>(
         () => _i1069.NetworkLogInterceptor());
     gh.lazySingleton<_i379.RemoteConfig>(() => _i379.RemoteConfig());
-    gh.lazySingleton<_i398.FirebaseAnalytics>(
-        () => registerModule.provideFirebaseAnalytics());
-    gh.lazySingleton<_i141.FirebaseCrashlytics>(
-        () => registerModule.provideFirebaseCrashlytics());
-    gh.lazySingleton<_i457.FirebaseStorage>(
-        () => registerModule.provideFirebaseStorage());
+    gh.lazySingleton<_i44.RemoteConfigRepository>(
+        () => _i44.RemoteConfigRepository());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
         () => registerModule.storage());
-    gh.lazySingleton<_i627.FirebaseRemoteConfig>(
-        () => registerModule.provideFirebaseRemoteConfig());
     gh.lazySingleton<_i235.ErrorUtil>(() => _i235.ErrorUtil());
     gh.lazySingleton<_i437.ThemeConfigUtil>(() => _i437.ThemeConfigUtil());
-    gh.lazySingleton<_i44.RemoteConfigRepository>(
-        () => _i44.RemoteConfigRepository(gh<_i627.FirebaseRemoteConfig>()));
     gh.singleton<_i40.CacheControlling>(() => _i979.CacheController());
-    gh.lazySingleton<_i192.FireBaseAnalyticsRepository>(
-        () => _i192.FireBaseAnalyticsRepository(gh<_i398.FirebaseAnalytics>()));
     gh.singleton<_i481.NetworkErrorInterceptor>(
         () => _i481.NetworkErrorInterceptor(gh<_i556.ConnectivityHelper>()));
     gh.lazySingleton<_i556.SharedPreferenceStorage>(
@@ -159,14 +143,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i861.MainNavigator(gh<_i235.ErrorUtil>()));
     gh.lazySingleton<_i175.SecureLogStorage>(() =>
         registerModule.provideSecureLogStorage(gh<_i658.SecureStorage>()));
-    gh.lazySingleton<_i182.LoggingRepository>(() => _i182.LoggingRepository(
-          gh<_i457.FirebaseStorage>(),
-          gh<_i175.SecureLogStorage>(),
-        ));
-    gh.factory<_i114.LogDetailViewModel>(() => _i114.LogDetailViewModel(
-          gh<_i175.SecureLogStorage>(),
-          gh<_i182.LoggingRepository>(),
-        ));
     gh.factory<_i880.LicenseViewModel>(
         () => _i880.LicenseViewModel(gh<_i861.MainNavigator>()));
     gh.factory<_i310.LogsViewModel>(() => _i310.LogsViewModel(
@@ -182,6 +158,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i559.AuthStorage(gh<_i556.SimpleKeyValueStorage>()));
     gh.lazySingleton<_i661.TodoDaoStorage>(
         () => _i661.TodoDaoStorage(gh<_i327.FlutterTemplateDatabase>()));
+    gh.lazySingleton<_i182.LoggingRepository>(
+        () => _i182.LoggingRepository(gh<_i175.SecureLogStorage>()));
     gh.lazySingleton<_i529.RefreshRepository>(
         () => _i529.RefreshRepository(gh<_i559.AuthStorage>()));
     gh.lazySingleton<_i726.LoginRepository>(
@@ -195,6 +173,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i559.AuthStorage>(),
               gh<_i529.RefreshRepository>(),
             ));
+    gh.factory<_i114.LogDetailViewModel>(() => _i114.LogDetailViewModel(
+          gh<_i175.SecureLogStorage>(),
+          gh<_i182.LoggingRepository>(),
+        ));
     gh.lazySingleton<_i955.TodoRepository>(() => _i955.TodoRepository(
           gh<_i738.TodoService>(),
           gh<_i661.TodoDaoStorage>(),

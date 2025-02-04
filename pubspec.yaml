@@ -17,13 +17,7 @@ dependencies:
   drift_db_viewer: ^2.0.0
   drift_local_storage_inspector: ^0.7.0
   file_local_storage_inspector: ^0.4.0
-  firebase_analytics: ^11.4.1
-  firebase_analytics_web: ^0.5.1+8
-  firebase_core: ^3.10.1
-  firebase_core_web: ^2.1.0
-  firebase_crashlytics: ^4.3.1
-  firebase_remote_config: ^5.3.1
-  firebase_storage: ^12.4.1
+ 
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.3.0
