@@ -104,6 +104,7 @@ mixin BaseNavigator {
         );
 
       case RouteNames.mealsScreen:
+        // Add routes for other screens as needed
         return MaterialPageRoute<void>(
           builder: (_) => MealsScreen(),
           settings: settings,
@@ -232,7 +233,7 @@ class RouteNames {
 
   /// /debug
   static const debugScreen = '/debug';
-
-  //meals home screen
+  
+  //meals screen
   static const mealsScreen = '/meals';
 }
