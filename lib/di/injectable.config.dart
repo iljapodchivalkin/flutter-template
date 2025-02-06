@@ -75,6 +75,8 @@ import 'package:flutter_template/viewmodel/todo/todo_add/todo_add_viewmodel.dart
     as _i200;
 import 'package:flutter_template/viewmodel/todo/todo_list/todo_list_viewmodel.dart'
     as _i772;
+import 'package:flutter_template/webservice/meal/meal_service.dart' as _i539;
+import 'package:flutter_template/webservice/meal/meal_webservice.dart' as _i161;
 import 'package:flutter_template/webservice/todo/todo_dummy_service.dart'
     as _i698;
 import 'package:flutter_template/webservice/todo/todo_service.dart' as _i738;
@@ -250,6 +252,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.singleton<_i539.MealService>(
+        () => _i161.MealWebService(gh<_i361.Dio>()));
     return this;
   }
 }

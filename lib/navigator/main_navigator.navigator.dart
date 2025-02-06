@@ -104,7 +104,6 @@ mixin BaseNavigator {
         );
 
       case RouteNames.mealsScreen:
-        // Add routes for other screens as needed
         return MaterialPageRoute<void>(
           builder: (_) => MealsScreen(),
           settings: settings,
@@ -193,11 +192,11 @@ mixin BaseNavigator {
       );
 
   void goToMealsScreen() =>
-      navigatorKey.currentState?.pushNamedAndRemoveUntil<dynamic>(
-        RouteNames.mealsScreen,
-        (_) => false,
-        arguments: {},
-      );
+    navigatorKey.currentState?.pushNamedAndRemoveUntil<dynamic>(
+      RouteNames.mealsScreen,
+      (_) => false,
+      arguments: {},
+    );
 }
 
 class RouteNames {
@@ -233,7 +232,7 @@ class RouteNames {
 
   /// /debug
   static const debugScreen = '/debug';
-  
-  //meals screen
+
+  /// /meals
   static const mealsScreen = '/meals';
 }
