@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/util/extension/color_extension.dart';
 
 class MealInfoCard extends StatefulWidget {
   const MealInfoCard({super.key});
@@ -30,7 +31,7 @@ class _MealInfoCardState extends State<MealInfoCard> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.grey.withOpacityValue(0.5),
               spreadRadius: 2,
               blurRadius: 10, 
               offset: _isHovered ? Offset(0, 5) : Offset(0, 5),
