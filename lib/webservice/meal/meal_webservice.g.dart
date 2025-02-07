@@ -22,9 +22,9 @@ class _MealWebService implements MealWebService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<Meal>> getMeals() async {
+  Future<List<Meal>> getMealsByName({required String name}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r's': name};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<List<Meal>>(Options(
@@ -34,7 +34,77 @@ class _MealWebService implements MealWebService {
     )
         .compose(
           _dio.options,
-          '/meals',
+          'search.php',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Meal> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Meal.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<Meal>> getMealsByCountry({required String country}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'a': country};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Meal>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'filter.php',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Meal> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Meal.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<Meal>> getMealsByCategory({required String category}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'c': category};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Meal>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'filter.php',
           queryParameters: queryParameters,
           data: _data,
         )

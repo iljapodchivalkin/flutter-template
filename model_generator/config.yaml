@@ -15,11 +15,21 @@ Todo:
 Meal:
   path: webservice/meal/   
   properties:
-    id: String
-    name: String
-    country: String
-    category: String
-    image: String
+    id:
+      type: String
+      jsonKey: idMeal
+    name: 
+      type: String
+      jsonKey: strMeal
+    country:
+      type: String
+      jsonKey: strArea
+    category: 
+      type: String
+      jsonKey: strCategory
+    image: 
+      type: String
+      jsonKey: strMealThumb
 
 ##################################################################################
 #####                                REMOTE CONFIG                           #####

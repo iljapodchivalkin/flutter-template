@@ -13,7 +13,16 @@ abstract class MealWebService extends MealService {
   factory MealWebService(Dio dio) = _MealWebService;
 
   @override
-  @GET('/meals')
-  Future<List<Meal>> getMeals();
+  @GET('search.php')
+  Future<List<Meal>> getMealsByName({@Query('s') required name});
+
+  @override
+  @GET('filter.php')
+  Future<List<Meal>> getMealsByCountry({@Query('a') required country});
+
+  @override
+  @GET('filter.php')
+  Future<List<Meal>> getMealsByCategory({@Query('c') required category});
+
 }
 

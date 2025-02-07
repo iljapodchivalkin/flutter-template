@@ -6,15 +6,15 @@ part 'meal.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Meal {
-  @JsonKey(name: 'id', required: true)
+  @JsonKey(name: 'idMeal', required: true)
   final String id;
-  @JsonKey(name: 'name', required: true)
+  @JsonKey(name: 'strMeal', required: true)
   final String name;
-  @JsonKey(name: 'country', required: true)
+  @JsonKey(name: 'strArea', required: true)
   final String country;
-  @JsonKey(name: 'category', required: true)
+  @JsonKey(name: 'strCategory', required: true)
   final String category;
-  @JsonKey(name: 'image', required: true)
+  @JsonKey(name: 'strMealThumb', required: true)
   final String image;
 
   const Meal({

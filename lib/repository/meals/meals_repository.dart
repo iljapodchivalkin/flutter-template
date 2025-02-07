@@ -1,0 +1,32 @@
+
+import 'package:flutter_template/model/webservice/meal/meal.dart';
+import 'package:flutter_template/webservice/meal/meal_service.dart';
+import 'package:injectable/injectable.dart';
+
+@lazySingleton
+abstract class MealsRepository {
+  @factoryMethod
+  factory MealsRepository(MealService service) = _MealRepository;
+
+  Future<List<Meal>> getMealsByName(String name);
+
+  Future<List<Meal>> getMealsByCategory(String category);
+
+  Future<List<Meal>> getMealsByCountry(String country);
+}
+
+class _MealRepository implements MealsRepository {
+  final MealService _service;
+
+  _MealRepository(this._service);
+  
+  @override
+  Future<List<Meal>> getMealsByName(String name) => _service.getMealsByName(name:name);
+
+  @override
+  Future<List<Meal>> getMealsByCountry(String country) => _service.getMealsByCountry(country:country);
+
+  @override
+  Future<List<Meal>> getMealsByCategory(String category) => _service.getMealsByCategory(category:category);
+  
+}

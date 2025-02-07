@@ -18,11 +18,11 @@ import '../screen/license/license_screen.dart';
 import '../screen/log_detail/log_detail_screen.dart';
 import '../screen/login/login_screen.dart';
 import '../screen/logs/logs_screen.dart';
+import '../screen/meals/meals_screen.dart';
 import '../screen/permission/analytics_permission_screen.dart';
 import '../screen/splash/splash_screen.dart';
 import '../screen/theme_mode/theme_mode_selector.dart';
 import '../screen/todo/todo_add/todo_add_screen.dart';
-import '../screen/meals/meals_screen.dart';
 
 mixin BaseNavigator {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -102,7 +102,6 @@ mixin BaseNavigator {
           settings: settings,
           fullscreenDialog: false,
         );
-
       case RouteNames.mealsScreen:
         return MaterialPageRoute<void>(
           builder: (_) => MealsScreen(),
@@ -174,6 +173,11 @@ mixin BaseNavigator {
         RouteNames.debugScreen,
         arguments: {},
       );
+  Future<void> goToMealsScreen() async =>
+      navigatorKey.currentState?.pushNamed<dynamic>(
+        RouteNames.mealsScreen,
+        arguments: {},
+      );
   void goBack() => navigatorKey.currentState?.pop();
   void goBackWithResult<T>({T? result}) =>
       navigatorKey.currentState?.pop(result);
@@ -190,13 +194,6 @@ mixin BaseNavigator {
         context: navigatorKey.currentContext!,
         builder: (_) => widget ?? const SizedBox.shrink(),
       );
-
-  void goToMealsScreen() =>
-    navigatorKey.currentState?.pushNamedAndRemoveUntil<dynamic>(
-      RouteNames.mealsScreen,
-      (_) => false,
-      arguments: {},
-    );
 }
 
 class RouteNames {

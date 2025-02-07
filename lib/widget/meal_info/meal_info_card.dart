@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class MealInfoCard extends StatefulWidget {
   const MealInfoCard({super.key});
 
+  
+
   @override
   State<MealInfoCard> createState() => _MealInfoCardState();
 }

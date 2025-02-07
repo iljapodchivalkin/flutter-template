@@ -25,6 +25,8 @@ import 'package:flutter_template/repository/logging/logging_repository.dart'
     as _i182;
 import 'package:flutter_template/repository/login/login_repository.dart'
     as _i726;
+import 'package:flutter_template/repository/meals/meals_repository.dart'
+    as _i735;
 import 'package:flutter_template/repository/refresh/refresh_repository.dart'
     as _i529;
 import 'package:flutter_template/repository/remote_config/remote_config.dart'
@@ -67,6 +69,8 @@ import 'package:flutter_template/viewmodel/log_detail/log_detail_viewmodel.dart'
     as _i114;
 import 'package:flutter_template/viewmodel/login/login_viewmodel.dart' as _i681;
 import 'package:flutter_template/viewmodel/logs/logs_viewmodel.dart' as _i310;
+import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart'
+    as _i1066;
 import 'package:flutter_template/viewmodel/permission/analytics_permission_viewmodel.dart'
     as _i527;
 import 'package:flutter_template/viewmodel/splash/splash_viewmodel.dart'
@@ -254,6 +258,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i539.MealService>(
         () => _i161.MealWebService(gh<_i361.Dio>()));
+    gh.lazySingleton<_i735.MealsRepository>(
+        () => _i735.MealsRepository(gh<_i539.MealService>()));
+    gh.factory<_i1066.MealsViewModel>(() => _i1066.MealsViewModel(
+          gh<_i861.MainNavigator>(),
+          gh<_i735.MealsRepository>(),
+        ));
     return this;
   }
 }
