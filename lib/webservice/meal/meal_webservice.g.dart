@@ -22,12 +22,12 @@ class _MealWebService implements MealWebService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<Meal>> getMealsByName({required String name}) async {
+  Future<MealResponse> getMealsByName({required String name}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r's': name};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Meal>>(Options(
+    final _options = _setStreamType<MealResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,12 +43,10 @@ class _MealWebService implements MealWebService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<Meal> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MealResponse _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => Meal.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = MealResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -57,12 +55,12 @@ class _MealWebService implements MealWebService {
   }
 
   @override
-  Future<List<Meal>> getMealsByCountry({required String country}) async {
+  Future<MealResponse> getMealsByCountry({required String country}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'a': country};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Meal>>(Options(
+    final _options = _setStreamType<MealResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -78,12 +76,10 @@ class _MealWebService implements MealWebService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<Meal> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MealResponse _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => Meal.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = MealResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -92,12 +88,12 @@ class _MealWebService implements MealWebService {
   }
 
   @override
-  Future<List<Meal>> getMealsByCategory({required String category}) async {
+  Future<MealResponse> getMealsByCategory({required String category}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'c': category};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Meal>>(Options(
+    final _options = _setStreamType<MealResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -113,12 +109,10 @@ class _MealWebService implements MealWebService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<Meal> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MealResponse _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => Meal.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = MealResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

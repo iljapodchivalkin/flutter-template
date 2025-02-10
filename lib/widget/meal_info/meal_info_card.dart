@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/util/extension/color_extension.dart';
+import 'package:flutter_template/styles/theme_data.dart';
+import 'package:flutter_template/styles/theme_durations.dart';
+import 'package:flutter_template/widget/provider/data_provider_widget.dart';
 
 class MealInfoCard extends StatefulWidget {
-  const MealInfoCard({super.key});
+  final String mealImage;
+  final String mealTitle;
 
-  
+  const MealInfoCard({
+    required this.mealImage,
+    required this.mealTitle,
+    super.key,
+  });
 
   @override
   State<MealInfoCard> createState() => _MealInfoCardState();
@@ -13,43 +20,41 @@ class MealInfoCard extends StatefulWidget {
 class _MealInfoCardState extends State<MealInfoCard> {
   bool _isHovered = false;
 
+  void _updateIsHovered(bool isHovered) {
+    setState(() => _isHovered = isHovered);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        padding: EdgeInsets.all(20),
-        margin: EdgeInsets.all(15),
-        transform: _isHovered
-            ? Matrix4.translationValues(0, -10, 0) 
-            : Matrix4.identity(),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacityValue(0.5),
-              spreadRadius: 2,
-              blurRadius: 10, 
-              offset: _isHovered ? Offset(0, 5) : Offset(0, 5),
-            ),
-          ],
-        ),
-        child: SizedBox(
-          width: 250,
+    return DataProviderWidget(
+      childBuilder: (context, theme, localization) => MouseRegion(
+        onEnter: (_) => _updateIsHovered(true),
+        onExit: (_) => _updateIsHovered(false),
+        child: AnimatedContainer(
+          duration: ThemeDurations.mediumAnimationDuration,
+          curve: Curves.easeInOut,
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.all(16),
+          transform: _isHovered
+              ? Matrix4.translationValues(0, -10, 0)
+              : Matrix4.identity(),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: theme.pureWhite,
+            boxShadow: theme.effects.elevation2,
+          ),
           child: Column(
             children: [
-              Image.network(
-                'https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg',
+              Expanded(
+                child: Image.network(
+                  widget.mealImage
+                ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  'Spaghetti alla Carbonara',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+                  widget.mealTitle,
+                  style: theme.bodyNeutralDefault.paragraphM,
                 ),
               ),
             ],
@@ -59,4 +64,3 @@ class _MealInfoCardState extends State<MealInfoCard> {
     );
   }
 }
-

@@ -12,7 +12,7 @@ Future<void> main() async {
   await wrapMain(() async {
     await initNiddler();
     const values = FlavorValues(
-      baseUrl: 'www.themealdb.com/api/json/v1/1/',
+      baseUrl: 'https://www.themealdb.com/api/json/v1/1/',
       logNetworkInfo: true,
       showFullErrorMessages: true,
     );

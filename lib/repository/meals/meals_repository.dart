@@ -21,12 +21,22 @@ class _MealRepository implements MealsRepository {
   _MealRepository(this._service);
   
   @override
-  Future<List<Meal>> getMealsByName(String name) => _service.getMealsByName(name:name);
+  Future<List<Meal>> getMealsByName(String name) async{
+    final result = await  _service.getMealsByName(name:name);
+    return result.meals;
+  }
 
   @override
-  Future<List<Meal>> getMealsByCountry(String country) => _service.getMealsByCountry(country:country);
+  Future<List<Meal>> getMealsByCountry(String country) async {
+    final result = await _service.getMealsByCountry(country:country);
+    return result.meals;
+    }
+
 
   @override
-  Future<List<Meal>> getMealsByCategory(String category) => _service.getMealsByCategory(category:category);
-  
+  Future<List<Meal>> getMealsByCategory(String category) async {
+    final result = await _service.getMealsByCategory(category:category);
+    return result.meals;
+  }
+ 
 }

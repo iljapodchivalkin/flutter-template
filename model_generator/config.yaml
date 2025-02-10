@@ -12,6 +12,11 @@ Todo:
 #####                                MEAL                                    #####
 ##################################################################################
 
+MealResponse:
+  path: webservice/meal/
+  properties:
+    meals: List<Meal>
+
 Meal:
   path: webservice/meal/   
   properties:

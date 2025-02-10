@@ -23,8 +23,13 @@ class MealsViewModel with ChangeNotifierEx {
     await _getMealsByName('taco');
   }
 
+  Future<void> searchMealByName(String name) async {
+    await _getMealsByName(name);
+  }
+
   Future<void> _getMealsByName(String name) async {
-    _meals.replaceAll(await _mealsRepo.getMealsByName(name));
+    final meals = await _mealsRepo.getMealsByName(name);
+    _meals.replaceAll(meals);
     if (disposed) return;
     notifyListeners();
   }

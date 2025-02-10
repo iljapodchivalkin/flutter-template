@@ -72,6 +72,12 @@ mixin BaseNavigator {
           settings: settings,
           fullscreenDialog: false,
         );
+      case RouteNames.mealsScreen:
+        return MaterialPageRoute<void>(
+          builder: (_) => MealsScreen(),
+          settings: settings,
+          fullscreenDialog: false,
+        );
       case RouteNames.analyticsPermissionScreen:
         return MaterialPageRoute<void>(
           builder: (_) => AnalyticsPermissionScreen(),
@@ -99,12 +105,6 @@ mixin BaseNavigator {
       case RouteNames.debugScreen:
         return MaterialPageRoute<void>(
           builder: (_) => DebugScreen(),
-          settings: settings,
-          fullscreenDialog: false,
-        );
-      case RouteNames.mealsScreen:
-        return MaterialPageRoute<void>(
-          builder: (_) => MealsScreen(),
           settings: settings,
           fullscreenDialog: false,
         );
@@ -147,6 +147,11 @@ mixin BaseNavigator {
         RouteNames.logsScreen,
         arguments: {},
       );
+  Future<void> goToMealsScreen() async =>
+      navigatorKey.currentState?.pushNamed<dynamic>(
+        RouteNames.mealsScreen,
+        arguments: {},
+      );
   Future<void> goToAnalyticsPermissionScreen() async =>
       navigatorKey.currentState?.pushNamed<dynamic>(
         RouteNames.analyticsPermissionScreen,
@@ -171,11 +176,6 @@ mixin BaseNavigator {
   Future<void> goToDebugScreen() async =>
       navigatorKey.currentState?.pushNamed<dynamic>(
         RouteNames.debugScreen,
-        arguments: {},
-      );
-  Future<void> goToMealsScreen() async =>
-      navigatorKey.currentState?.pushNamed<dynamic>(
-        RouteNames.mealsScreen,
         arguments: {},
       );
   void goBack() => navigatorKey.currentState?.pop();
@@ -215,6 +215,9 @@ class RouteNames {
   /// /logs
   static const logsScreen = '/logs';
 
+  /// /meals
+  static const mealsScreen = '/meals';
+
   /// /analytics-permission
   static const analyticsPermissionScreen = '/analytics-permission';
 
@@ -229,7 +232,4 @@ class RouteNames {
 
   /// /debug
   static const debugScreen = '/debug';
-
-  /// /meals
-  static const mealsScreen = '/meals';
 }

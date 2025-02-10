@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
 import 'package:log_to_secure_file/log_to_secure_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,6 +25,7 @@ abstract class BaseLoggingRepository {
   void storeLogLine(String line) => _loggerLock.synchronized(() => _secureLogStorage.storeLogLine(line));
 
   Future<void> uploadLog(DateTime date) async {
+    if (kIsWeb) return;
     final applicationDirectory = await getApplicationCacheDirectory();
     final file = File('${applicationDirectory.path}$tempLogPath');
     if (file.existsSync()) {

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_template/model/webservice/meal/meal_response.dart';
 
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:flutter_template/model/webservice/meal/meal.dart';
 import 'package:flutter_template/webservice/meal/meal_service.dart';
 part 'meal_webservice.g.dart';
 
@@ -14,15 +14,15 @@ abstract class MealWebService extends MealService {
 
   @override
   @GET('search.php')
-  Future<List<Meal>> getMealsByName({@Query('s') required name});
+  Future<MealResponse> getMealsByName({@Query('s') required name});
 
   @override
   @GET('filter.php')
-  Future<List<Meal>> getMealsByCountry({@Query('a') required country});
+  Future<MealResponse> getMealsByCountry({@Query('a') required country});
 
   @override
   @GET('filter.php')
-  Future<List<Meal>> getMealsByCategory({@Query('c') required category});
+  Future<MealResponse> getMealsByCategory({@Query('c') required category});
 
 }
 
