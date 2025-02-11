@@ -14,9 +14,6 @@ class MealsScreen extends StatefulWidget {
 }
 
 class _MealsScreenState extends State<MealsScreen> {
-
-  
-
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<MealsViewModel>(
@@ -30,8 +27,8 @@ class _MealsScreenState extends State<MealsScreen> {
           ),
         ),
         body: LayoutBuilder(
-          builder: (context, contraints) {
-            final isLargeScreen = contraints.maxWidth > 900;
+          builder: (context, constraints) {
+            final isLargeScreen = constraints.maxWidth > 900;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,30 +40,37 @@ class _MealsScreenState extends State<MealsScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       DropdownMenu(
+                        onSelected: (value) => viewModel.onTypeSelected(value),
                         menuStyle: MenuStyle(
                           shape: WidgetStatePropertyAll(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                           ),
                         ),
                         dropdownMenuEntries: [
                           DropdownMenuEntry(
-                            value: 1,
+                            value: MealFilterOptions.name,
                             label: 'Search by dish name',
                           ),
                           DropdownMenuEntry(
-                            value: 2,
+                            value: MealFilterOptions.country,
                             label: 'Search by country',
                           ),
                           DropdownMenuEntry(
-                            value: 3,
-                            label: 'Search by ingredient',
+                            value: MealFilterOptions.category,
+                            label: 'Search by category',
                           ),
                         ],
                       ),
                       SizedBox(width: 16),
-                      Expanded(child: SearchBar(hintText: 'Enter your search query here...', onChanged:(text)=> viewModel.searchMealByName(text),))
+                      Expanded(
+                        child: SearchBar(
+                          hintText: 'Enter your search query here...',
+                          onSubmitted: (text) => viewModel.searchMeal(text),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -74,7 +78,8 @@ class _MealsScreenState extends State<MealsScreen> {
                 Expanded(
                   child: GridView.builder(
                     itemCount: viewModel.meals.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: isLargeScreen ? 3 : 2),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: isLargeScreen ? 3 : 2),
                     itemBuilder: (BuildContext context, int index) {
                       final meal = viewModel.meals[index];
                       return MealInfoCard(

@@ -9,27 +9,21 @@ part of 'meal.dart';
 Meal _$MealFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
-    requiredKeys: const [
-      'idMeal',
-      'strMeal',
-      'strArea',
-      'strCategory',
-      'strMealThumb'
-    ],
+    requiredKeys: const ['idMeal', 'strMeal', 'strMealThumb'],
   );
   return Meal(
     id: json['idMeal'] as String,
     name: json['strMeal'] as String,
-    country: json['strArea'] as String,
-    category: json['strCategory'] as String,
     image: json['strMealThumb'] as String,
+    country: json['strArea'] as String?,
+    category: json['strCategory'] as String?,
   );
 }
 
 Map<String, dynamic> _$MealToJson(Meal instance) => <String, dynamic>{
       'idMeal': instance.id,
       'strMeal': instance.name,
-      'strArea': instance.country,
-      'strCategory': instance.category,
       'strMealThumb': instance.image,
+      if (instance.country case final value?) 'strArea': value,
+      if (instance.category case final value?) 'strCategory': value,
     };

@@ -10,19 +10,19 @@ class Meal {
   final String id;
   @JsonKey(name: 'strMeal', required: true)
   final String name;
-  @JsonKey(name: 'strArea', required: true)
-  final String country;
-  @JsonKey(name: 'strCategory', required: true)
-  final String category;
   @JsonKey(name: 'strMealThumb', required: true)
   final String image;
+  @JsonKey(name: 'strArea', includeIfNull: false)
+  final String? country;
+  @JsonKey(name: 'strCategory', includeIfNull: false)
+  final String? category;
 
   const Meal({
     required this.id,
     required this.name,
-    required this.country,
-    required this.category,
     required this.image,
+    this.country,
+    this.category,
   });
 
   factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);

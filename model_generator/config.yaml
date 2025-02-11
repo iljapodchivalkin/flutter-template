@@ -15,7 +15,7 @@ Todo:
 MealResponse:
   path: webservice/meal/
   properties:
-    meals: List<Meal>
+    meals: List<Meal>?
 
 Meal:
   path: webservice/meal/   
@@ -27,10 +27,10 @@ Meal:
       type: String
       jsonKey: strMeal
     country:
-      type: String
+      type: String?
       jsonKey: strArea
     category: 
-      type: String
+      type: String?
       jsonKey: strCategory
     image: 
       type: String

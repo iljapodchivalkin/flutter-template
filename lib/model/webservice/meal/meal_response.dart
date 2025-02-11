@@ -7,11 +7,11 @@ part 'meal_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class MealResponse {
-  @JsonKey(name: 'meals', required: true)
-  final List<Meal> meals;
+  @JsonKey(name: 'meals', includeIfNull: false)
+  final List<Meal>? meals;
 
   const MealResponse({
-    required this.meals,
+    this.meals,
   });
 
   factory MealResponse.fromJson(Map<String, dynamic> json) => _$MealResponseFromJson(json);
