@@ -16,6 +16,8 @@ class Meal {
   final String? country;
   @JsonKey(name: 'strCategory', includeIfNull: false)
   final String? category;
+  @JsonKey(name: 'strInstructions', includeIfNull: false)
+  final String? instructions;
 
   const Meal({
     required this.id,
@@ -23,6 +25,7 @@ class Meal {
     required this.image,
     this.country,
     this.category,
+    this.instructions,
   });
 
   factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);

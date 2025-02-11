@@ -17,6 +17,7 @@ MealResponse:
   properties:
     meals: List<Meal>?
 
+
 Meal:
   path: webservice/meal/   
   properties:
@@ -35,6 +36,9 @@ Meal:
     image: 
       type: String
       jsonKey: strMealThumb
+    instructions: 
+      type: String?
+      jsonKey: strInstructions
 
 ##################################################################################
 #####                                REMOTE CONFIG                           #####

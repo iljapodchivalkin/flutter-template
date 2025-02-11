@@ -17,6 +17,7 @@ Meal _$MealFromJson(Map<String, dynamic> json) {
     image: json['strMealThumb'] as String,
     country: json['strArea'] as String?,
     category: json['strCategory'] as String?,
+    instructions: json['strInstructions'] as String?,
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$MealToJson(Meal instance) => <String, dynamic>{
       'strMealThumb': instance.image,
       if (instance.country case final value?) 'strArea': value,
       if (instance.category case final value?) 'strCategory': value,
+      if (instance.instructions case final value?) 'strInstructions': value,
     };
