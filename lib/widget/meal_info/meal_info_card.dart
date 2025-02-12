@@ -41,6 +41,7 @@ class _MealInfoCardState extends State<MealInfoCard> {
           child: MealDetailScreen(
             mealImage: widget.mealImage,
             mealTitle: widget.mealTitle,
+            instructions: widget.instructions,
           ),
         ),
       ),
@@ -61,7 +62,7 @@ class _MealInfoCardState extends State<MealInfoCard> {
             padding: EdgeInsets.all(20),
             margin: EdgeInsets.all(16),
             transform: _isHovered
-                ? Matrix4.translationValues(0, -10, 0)
+                ? Matrix4.translationValues(0, -12, 0)
                 : Matrix4.identity(),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),

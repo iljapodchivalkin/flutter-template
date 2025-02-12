@@ -85,6 +85,7 @@ class _MealsScreenState extends State<MealsScreen> {
                       return MealInfoCard(
                         mealImage: meal.image,
                         mealTitle: meal.name,
+                        instructions: meal.instructions,
                       );
                     },
                   ),
