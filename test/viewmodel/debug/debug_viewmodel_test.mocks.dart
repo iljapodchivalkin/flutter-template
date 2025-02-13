@@ -480,6 +480,26 @@ class MockMainNavigator extends _i1.Mock implements _i7.MainNavigator {
       ) as _i6.Future<void>);
 
   @override
+  _i6.Future<void> showDialogMealDetailScreen({
+    required String? mealImage,
+    required String? mealTitle,
+    String? instructions,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showDialogMealDetailScreen,
+          [],
+          {
+            #mealImage: mealImage,
+            #mealTitle: mealTitle,
+            #instructions: instructions,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
   void goBack() => super.noSuchMethod(
         Invocation.method(
           #goBack,

@@ -10,6 +10,7 @@ targets:
         generate_for:
           include:
             - lib/screen/**.dart
+            - lib/dialog/**.dart
       flutter_navigation_generator:flutter_navigator_builder:
         generate_for:
           include:

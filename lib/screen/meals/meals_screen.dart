@@ -18,8 +18,7 @@ class _MealsScreenState extends State<MealsScreen> {
   Widget build(BuildContext context) {
     return ProviderWidget<MealsViewModel>(
       create: () => getIt()..init(),
-      childBuilderWithViewModel: (context, viewModel, theme, localization) =>
-          Scaffold(
+      childBuilderWithViewModel: (context, viewModel, theme, localization) => Scaffold(
         appBar: AppBar(
           title: const Text(
             'Meals App',
@@ -44,8 +43,7 @@ class _MealsScreenState extends State<MealsScreen> {
                         menuStyle: MenuStyle(
                           shape: WidgetStatePropertyAll(
                             RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
                             ),
                           ),
                         ),
@@ -78,14 +76,14 @@ class _MealsScreenState extends State<MealsScreen> {
                 Expanded(
                   child: GridView.builder(
                     itemCount: viewModel.meals.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: isLargeScreen ? 3 : 2),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: isLargeScreen ? 3 : 2),
                     itemBuilder: (BuildContext context, int index) {
                       final meal = viewModel.meals[index];
                       return MealInfoCard(
                         mealImage: meal.image,
                         mealTitle: meal.name,
                         instructions: meal.instructions,
+                        onMealCardTapped: () => viewModel.onMealCardTapped(meal),
                       );
                     },
                   ),

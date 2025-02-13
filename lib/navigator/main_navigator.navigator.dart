@@ -6,11 +6,14 @@
 
 // ignore_for_file: prefer_const_constructors
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/dialog/meal_detail_screen.dart' as _i1;
 
+import '../dialog/meal_detail_screen.dart';
 import '../screen/debug/debug_platform_selector_screen.dart';
 import '../screen/debug/debug_screen.dart';
 import '../screen/home/home_screen.dart';
@@ -178,6 +181,17 @@ mixin BaseNavigator {
         RouteNames.debugScreen,
         arguments: {},
       );
+  Future<void> showDialogMealDetailScreen({
+    required String mealImage,
+    required String mealTitle,
+    String? instructions,
+  }) async =>
+      showCustomDialog<dynamic>(
+          widget: _i1.MealDetailScreen(
+        mealImage: mealImage,
+        mealTitle: mealTitle,
+        instructions: instructions,
+      ));
   void goBack() => navigatorKey.currentState?.pop();
   void goBackWithResult<T>({T? result}) =>
       navigatorKey.currentState?.pop(result);
