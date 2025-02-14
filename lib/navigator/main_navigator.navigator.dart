@@ -6,12 +6,10 @@
 
 // ignore_for_file: prefer_const_constructors
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/dialog/meal_detail_screen.dart' as _i1;
 
 import '../dialog/meal_detail_screen.dart';
 import '../screen/debug/debug_platform_selector_screen.dart';
@@ -37,6 +35,14 @@ mixin BaseNavigator {
     final settingsUri = Uri.parse(settings.name ?? '');
     final queryParameters = Map.from(settingsUri.queryParameters);
     switch (settingsUri.path) {
+      case RouteNames.mealDetailScreen:
+        return MaterialPageRoute<void>(
+          builder: (_) => MealDetailScreen(
+            mealId: queryParameters['mealId'] ?? arguments['mealId'] as String,
+          ),
+          settings: settings,
+          fullscreenDialog: false,
+        );
       case RouteNames.homeScreen:
         return MaterialPageRoute<void>(
           builder: (_) => HomeScreen(),
@@ -115,6 +121,14 @@ mixin BaseNavigator {
     return null;
   }
 
+  Future<void> goToMealDetailScreen({required String mealId}) async =>
+      navigatorKey.currentState?.pushNamed<dynamic>(
+        Uri(
+          path: RouteNames.mealDetailScreen,
+          queryParameters: kIsWeb ? {'mealId': mealId} : null,
+        ).toString(),
+        arguments: {'mealId': mealId},
+      );
   void goToHomeScreen() =>
       navigatorKey.currentState?.pushNamedAndRemoveUntil<dynamic>(
         RouteNames.homeScreen,
@@ -181,17 +195,6 @@ mixin BaseNavigator {
         RouteNames.debugScreen,
         arguments: {},
       );
-  Future<void> showDialogMealDetailScreen({
-    required String mealImage,
-    required String mealTitle,
-    String? instructions,
-  }) async =>
-      showCustomDialog<dynamic>(
-          widget: _i1.MealDetailScreen(
-        mealImage: mealImage,
-        mealTitle: mealTitle,
-        instructions: instructions,
-      ));
   void goBack() => navigatorKey.currentState?.pop();
   void goBackWithResult<T>({T? result}) =>
       navigatorKey.currentState?.pop(result);
@@ -211,6 +214,9 @@ mixin BaseNavigator {
 }
 
 class RouteNames {
+  /// /meal-detail
+  static const mealDetailScreen = '/meal-detail';
+
   /// /home
   static const homeScreen = '/home';
 

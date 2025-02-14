@@ -50,6 +50,14 @@
   "permission_button_more_info": "More info",
   "debug_permissions_title": "Permissions",
   "debug_permissions_show_analytics_permission": "Show analytics permission screen",
-  "debug_permission_reset_analytics": "Reset analytics permission"
+  "debug_permission_reset_analytics": "Reset analytics permission",
+  "app_name": "Meals App",
+  "search_by_dish_name": "Search by dish name",
+  "search_by_country": "Search by country",
+  "search_by_category": "Search by category",
+  "enter_search_query": "Enter your search query here...",
+  "instructions": "Instructions",
+  "no_instructions_available": "No instructions available",
+  "close": "Close"
 
 }

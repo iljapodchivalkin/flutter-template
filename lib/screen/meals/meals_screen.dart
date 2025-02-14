@@ -20,8 +20,8 @@ class _MealsScreenState extends State<MealsScreen> {
       create: () => getIt()..init(),
       childBuilderWithViewModel: (context, viewModel, theme, localization) => Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Meals App',
+          title: Text(
+            localization.appName,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -33,6 +33,8 @@ class _MealsScreenState extends State<MealsScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 32),
+
+                //dropdown menu & search bar
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
@@ -47,32 +49,25 @@ class _MealsScreenState extends State<MealsScreen> {
                             ),
                           ),
                         ),
-                        dropdownMenuEntries: [
-                          DropdownMenuEntry(
-                            value: MealFilterOptions.name,
-                            label: 'Search by dish name',
-                          ),
-                          DropdownMenuEntry(
-                            value: MealFilterOptions.country,
-                            label: 'Search by country',
-                          ),
-                          DropdownMenuEntry(
-                            value: MealFilterOptions.category,
-                            label: 'Search by category',
-                          ),
-                        ],
+                        dropdownMenuEntries: MealFilterOptions.values
+                            .map((option) => DropdownMenuEntry(
+                                  value: option,
+                                  label: localization.getTranslation(option.labelKey),
+                                ))
+                            .toList(),
                       ),
                       SizedBox(width: 16),
                       Expanded(
                         child: SearchBar(
-                          hintText: 'Enter your search query here...',
+                          hintText: localization.enterSearchQuery,
                           onSubmitted: (text) => viewModel.searchMeal(text),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: 32),    
+                //menu items
                 Expanded(
                   child: GridView.builder(
                     itemCount: viewModel.meals.length,

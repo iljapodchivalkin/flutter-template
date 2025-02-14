@@ -69,6 +69,8 @@ import 'package:flutter_template/viewmodel/log_detail/log_detail_viewmodel.dart'
     as _i114;
 import 'package:flutter_template/viewmodel/login/login_viewmodel.dart' as _i681;
 import 'package:flutter_template/viewmodel/logs/logs_viewmodel.dart' as _i310;
+import 'package:flutter_template/viewmodel/meals/meals_detail_screen_viewmodel.dart'
+    as _i134;
 import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart'
     as _i1066;
 import 'package:flutter_template/viewmodel/permission/analytics_permission_viewmodel.dart'
@@ -151,6 +153,8 @@ extension GetItInjectableX on _i174.GetIt {
         registerModule.provideSecureLogStorage(gh<_i658.SecureStorage>()));
     gh.factory<_i880.LicenseViewModel>(
         () => _i880.LicenseViewModel(gh<_i861.MainNavigator>()));
+    gh.lazySingleton<_i76.OnboardingNavigator>(
+        () => _i76.OnboardingNavigator(gh<_i861.MainNavigator>()));
     gh.factory<_i310.LogsViewModel>(() => _i310.LogsViewModel(
           gh<_i861.MainNavigator>(),
           gh<_i175.SecureLogStorage>(),
@@ -179,6 +183,11 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i559.AuthStorage>(),
               gh<_i529.RefreshRepository>(),
             ));
+    gh.factory<_i532.SplashViewModel>(() => _i532.SplashViewModel(
+          gh<_i855.LocalStorage>(),
+          gh<_i76.OnboardingNavigator>(),
+          gh<_i44.RemoteConfigRepository>(),
+        ));
     gh.factory<_i114.LogDetailViewModel>(() => _i114.LogDetailViewModel(
           gh<_i175.SecureLogStorage>(),
           gh<_i182.LoggingRepository>(),
@@ -187,10 +196,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i738.TodoService>(),
           gh<_i661.TodoDaoStorage>(),
         ));
-    gh.lazySingleton<_i76.OnboardingNavigator>(() => _i76.OnboardingNavigator(
-          gh<_i861.MainNavigator>(),
-          gh<_i855.LocalStorage>(),
+    gh.factory<_i681.LoginViewModel>(() => _i681.LoginViewModel(
           gh<_i726.LoginRepository>(),
+          gh<_i861.MainNavigator>(),
+          gh<_i76.OnboardingNavigator>(),
         ));
     gh.singleton<_i1011.NetworkAuthInterceptor>(
         () => _i1011.NetworkAuthInterceptor(gh<_i559.AuthStorage>()));
@@ -225,11 +234,6 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i861.MainNavigator>(),
               gh<_i836.GlobalViewModel>(),
             ));
-    gh.factory<_i532.SplashViewModel>(() => _i532.SplashViewModel(
-          gh<_i855.LocalStorage>(),
-          gh<_i76.OnboardingNavigator>(),
-          gh<_i44.RemoteConfigRepository>(),
-        ));
     gh.lazySingleton<_i556.CombiningSmartInterceptor>(
         () => registerModule.provideCombiningSmartInterceptor(
               gh<_i1069.NetworkLogInterceptor>(),
@@ -237,11 +241,6 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i481.NetworkErrorInterceptor>(),
               gh<_i765.NetworkRefreshInterceptor>(),
             ));
-    gh.factory<_i681.LoginViewModel>(() => _i681.LoginViewModel(
-          gh<_i726.LoginRepository>(),
-          gh<_i861.MainNavigator>(),
-          gh<_i76.OnboardingNavigator>(),
-        ));
     gh.lazySingleton<_i361.Dio>(
         () => registerModule.provideDio(gh<_i556.CombiningSmartInterceptor>()));
     gh.factory<_i1050.DebugPlatformSelectorViewModel>(
@@ -264,6 +263,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i861.MainNavigator>(),
           gh<_i735.MealsRepository>(),
         ));
+    gh.factory<_i134.MealsDetailScreenViewmodel>(
+        () => _i134.MealsDetailScreenViewmodel(
+              gh<_i861.MainNavigator>(),
+              gh<_i735.MealsRepository>(),
+            ));
     return this;
   }
 }

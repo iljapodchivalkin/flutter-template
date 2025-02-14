@@ -436,6 +436,18 @@ class MockMainNavigator extends _i1.Mock implements _i10.MainNavigator {
       )) as _i2.Route<dynamic>?);
 
   @override
+  _i5.Future<void> goToMealDetailScreen({required String? mealId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #goToMealDetailScreen,
+          [],
+          {#mealId: mealId},
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
   void goToHomeScreen() => super.noSuchMethod(
         Invocation.method(
           #goToHomeScreen,
@@ -549,26 +561,6 @@ class MockMainNavigator extends _i1.Mock implements _i10.MainNavigator {
         Invocation.method(
           #goToDebugScreen,
           [],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> showDialogMealDetailScreen({
-    required String? mealImage,
-    required String? mealTitle,
-    String? instructions,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #showDialogMealDetailScreen,
-          [],
-          {
-            #mealImage: mealImage,
-            #mealTitle: mealTitle,
-            #instructions: instructions,
-          },
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

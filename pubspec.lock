@@ -594,14 +594,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  icapps_translations:
-    dependency: "direct dev"
-    description:
-      name: icapps_translations
-      sha256: b9587f778004832abdc0c9eb8ad87bd8f77431b12cd6b72121561635f5e18b29
-      url: "https://pub.dev"
-    source: hosted
-    version: "11.0.0"
   image:
     dependency: transitive
     description:
@@ -715,7 +707,7 @@ packages:
     source: hosted
     version: "5.0.0"
   locale_gen:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: locale_gen
       sha256: "648eb2d675560a995b0db1b2ecc9331b828a442a95f63f277164c4030b9254c5"

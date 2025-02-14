@@ -24,5 +24,9 @@ abstract class MealWebService extends MealService {
   @GET('filter.php')
   Future<MealResponse> getMealsByCategory({@Query('c') required category});
 
+  @override
+  @GET('lookup.php')
+  Future<MealResponse> getMealById({@Query('i') required id});
+
 }
 

@@ -1,14 +1,19 @@
 import 'package:flutter_template/model/webservice/meal/meal.dart';
 import 'package:flutter_template/navigator/main_navigator.dart';
 import 'package:flutter_template/repository/meals/meals_repository.dart';
+import 'package:flutter_template/util/locale/localization_keys.dart';
 import 'package:flutter_template/util/logging/flutter_template_logger.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
 import 'package:injectable/injectable.dart';
 
 enum MealFilterOptions {
-  name,
-  country,
-  category,
+  name(labelKey: LocalizationKeys.searchByDishName),
+  country(labelKey: LocalizationKeys.searchByCountry),
+  category(labelKey: LocalizationKeys.searchByCategory);
+
+  final String labelKey;
+
+  const MealFilterOptions({required this.labelKey});
 }
 
 @injectable
@@ -61,9 +66,5 @@ class MealsViewModel with ChangeNotifierEx {
     _selectedType = type;
   }
 
-  void onMealCardTapped(Meal meal) => _navigator.showDialogMealDetailScreen(
-        mealImage: meal.image,
-        mealTitle: meal.name,
-        instructions: meal.instructions,
-      );
+  void onMealCardTapped(Meal meal) => _navigator.goToMealDetailScreen(mealId: meal.id);
 }
