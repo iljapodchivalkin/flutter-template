@@ -18,7 +18,7 @@ abstract class MealsRepository {
 
   Future<List<String>> getFavoriteMeals();
 
-  Future<String> getFavoriteMealById(String id);
+  Future<String?> getFavoriteMealById(String id);
 
   Future<void> addMealToFavorites(String id);
 
@@ -64,7 +64,7 @@ class _MealRepository implements MealsRepository {
   }
 
   @override
-  Future<String> getFavoriteMealById(String id) async {
+  Future<String?> getFavoriteMealById(String id) async {
     final result = await _storage.getFavoriteMealById(id);
     return result;
   }

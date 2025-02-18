@@ -177,7 +177,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i855.LocalStorage>(() => _i855.LocalStorage(
           gh<_i559.AuthStorage>(),
           gh<_i556.SharedPreferenceStorage>(),
-          
         ));
     gh.singleton<_i765.NetworkRefreshInterceptor>(
         () => _i765.NetworkRefreshInterceptor(
@@ -258,8 +257,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i539.MealService>(
         () => _i161.MealWebService(gh<_i361.Dio>()));
-    gh.lazySingleton<_i735.MealsRepository>(
-        () => _i735.MealsRepository(gh<_i539.MealService>()));
+    gh.lazySingleton<_i735.MealsRepository>(() => _i735.MealsRepository(
+          gh<_i539.MealService>(),
+          gh<_i855.LocalStorage>(),
+        ));
     gh.factory<_i1066.MealsViewModel>(() => _i1066.MealsViewModel(
           gh<_i861.MainNavigator>(),
           gh<_i735.MealsRepository>(),

@@ -9,6 +9,7 @@ class FavoriteIconWidget extends StatefulWidget {
 
 class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
   bool _isFavorite = true;
+  
   @override
   Widget build(BuildContext context) {
     return IconButton(
