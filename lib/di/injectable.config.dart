@@ -177,6 +177,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i855.LocalStorage>(() => _i855.LocalStorage(
           gh<_i559.AuthStorage>(),
           gh<_i556.SharedPreferenceStorage>(),
+          
         ));
     gh.singleton<_i765.NetworkRefreshInterceptor>(
         () => _i765.NetworkRefreshInterceptor(

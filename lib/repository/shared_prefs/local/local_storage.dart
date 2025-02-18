@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_template/repository/secure_storage/auth/auth_storage.dart';
 import 'package:flutter_template/util/extension/theme_mode_extension.dart';
@@ -7,7 +8,7 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 abstract class LocalStorage {
   @factoryMethod
-  factory LocalStorage(AuthStorage storage, SharedPreferenceStorage preferences) = _LocalStorage;
+  factory LocalStorage(AuthStorage storage, SharedPreferenceStorage preferences, List<String> favoriteMeals) = _LocalStorage;
 
   Future<void> checkForNewInstallation();
 
@@ -18,6 +19,15 @@ abstract class LocalStorage {
   Future<void> updateThemeMode(ThemeMode themeMode);
 
   Future<void> updateHasAnalyticsPermission(bool? permissionGranted);
+
+  Future<List<String>> getFavoriteMeals();
+
+  Future<String> getFavoriteMealById(String id);
+
+  Future<void> addMealToFavorites(String id);
+
+  Future<void> deleteMealFromFavorites(String id);
+
 }
 
 class _LocalStorage implements LocalStorage {
@@ -27,8 +37,9 @@ class _LocalStorage implements LocalStorage {
 
   final AuthStorage _authStorage;
   final SharedPreferenceStorage _sharedPreferences;
+  final List<String> _favoriteMeals;
 
-  _LocalStorage(this._authStorage, this._sharedPreferences);
+  _LocalStorage(this._authStorage, this._sharedPreferences, this._favoriteMeals);
 
   @override
   Future<void> checkForNewInstallation() async {
@@ -62,4 +73,27 @@ class _LocalStorage implements LocalStorage {
 
   @override
   bool? get hasAnalyticsPermission => _sharedPreferences.getBoolean(_analyticsPermissionKey);
+
+
+  @override
+  Future<List<String>> getFavoriteMeals() async {
+    return _favoriteMeals;
+  }
+
+  @override
+  Future<String> getFavoriteMealById(String id) async {
+    final result = _favoriteMeals.firstWhere((itemId) => itemId == id);
+    return result;
+  }
+
+  @override
+  Future<void> addMealToFavorites(String id) async {
+    _favoriteMeals.add(id);
+  }
+
+  @override
+  Future<void> deleteMealFromFavorites(String id) async {
+    _favoriteMeals.remove(id);
+  }
+
 }

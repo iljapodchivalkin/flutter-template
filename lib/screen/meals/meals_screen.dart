@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_navigation_generator_annotations/flutter_navigation_generator_annotations.dart';
 import 'package:flutter_template/di/injectable.dart';
 import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart';
+import 'package:flutter_template/widget/library/flutter_template_progress_indicator.dart';
 import 'package:flutter_template/widget/meal_info/meal_info_card.dart';
 import 'package:flutter_template/widget/provider/provider_widget.dart';
 
@@ -66,7 +67,10 @@ class _MealsScreenState extends State<MealsScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 32),    
+                SizedBox(height: 32),
+                if (viewModel.isLoading == true) ...[
+                  FlutterTemplateProgressIndicator(dark: true)   
+                ],
                 //menu items
                 Expanded(
                   child: GridView.builder(
