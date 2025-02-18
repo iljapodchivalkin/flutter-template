@@ -24,6 +24,7 @@ abstract class MealsRepository {
 
   Future<void> deleteMealFromFavorites(String id);
 
+  Future<bool> isMealFavorite(String id);
 
 }
 
@@ -79,5 +80,11 @@ class _MealRepository implements MealsRepository {
   Future<void> deleteMealFromFavorites(String id) async {
     final result = await _storage.deleteMealFromFavorites(id);
     return result;
+  }
+
+  @override
+  Future<bool> isMealFavorite(String id) async {
+    final favoriteMeals =  await _storage.getFavoriteMeals();
+    return favoriteMeals.contains(id);
   }
 }

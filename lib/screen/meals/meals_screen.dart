@@ -79,10 +79,13 @@ class _MealsScreenState extends State<MealsScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       final meal = viewModel.meals[index];
                       return MealInfoCard(
+                        mealId: meal.id,
                         mealImage: meal.image,
                         mealTitle: meal.name,
                         instructions: meal.instructions,
+                        isFavorite: viewModel.isMealFavorite(meal.id),
                         onMealCardTapped: () => viewModel.onMealCardTapped(meal),
+                        onFavoriteButtonClicked: () => viewModel.onFavoriteButtonClicked(meal.id),
                       );
                     },
                   ),

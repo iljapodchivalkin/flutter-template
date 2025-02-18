@@ -85,6 +85,31 @@ class MealsViewModel with ChangeNotifierEx {
     notifyListeners();
   }
 
+  void addMealToFavorites(String id){
+    _mealsRepo.addMealToFavorites(id);
+  }
 
+  void deleteMealFromFavorites(String id){
+    _mealsRepo.deleteMealFromFavorites(id);
+  }
 
+  void getAllFavoriteMeals(){
+    _mealsRepo.getFavoriteMeals();
+  }
+  
+
+  Future<bool> isMealFavorite(String id) async {
+  return await _mealsRepo.isMealFavorite(id); 
+}
+
+void onFavoriteButtonClicked(String id) async {
+  if (await isMealFavorite(id)) {
+    await _mealsRepo.deleteMealFromFavorites(id);
+    print("Meal with id $id deleted from favorites list");
+  } else {
+    await _mealsRepo.addMealToFavorites(id);
+    print("Meal with id $id added to favorites list");
+  }
+  notifyListeners();
+}
 }

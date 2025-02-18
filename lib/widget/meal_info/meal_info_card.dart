@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/di/injectable.dart';
-import 'package:flutter_template/styles/theme_data.dart';
 import 'package:flutter_template/styles/theme_durations.dart';
-import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart';
 import 'package:flutter_template/widget/meal_info/favorite_icon.dart';
-import 'package:flutter_template/widget/provider/provider_widget.dart';
+import 'package:flutter_template/widget/provider/data_provider_widget.dart';
 
 class MealInfoCard extends StatefulWidget {
+  final String mealId;
   final String mealImage;
   final String mealTitle;
   final String? instructions;
+  final Future<bool> isFavorite;
   final VoidCallback? onMealCardTapped;
+  final VoidCallback? onFavoriteButtonClicked;
   
-  
-
   const MealInfoCard({
+    required this.mealId,
     required this.mealImage,
     required this.mealTitle,
+    required this.isFavorite,
+    required this.onFavoriteButtonClicked,
     this.onMealCardTapped,
     this.instructions,
     super.key,
@@ -37,9 +38,8 @@ class _MealInfoCardState extends State<MealInfoCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onMealCardTapped,
-      child: ProviderWidget<MealsViewModel>(
-        create:() => getIt()..init(),
-        childBuilderWithViewModel: (context, viewModel, theme, localization) => MouseRegion(
+      child: DataProviderWidget(
+        childBuilder: (context, theme, localization) => MouseRegion(
           onEnter: (_) => _updateIsHovered(true),
           onExit: (_) => _updateIsHovered(false),
           child: AnimatedContainer(
@@ -54,29 +54,37 @@ class _MealInfoCardState extends State<MealInfoCard> {
               boxShadow: theme.effects.elevation2,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Image.network(widget.mealImage),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(child: Image.network(widget.mealImage, fit: BoxFit.cover)),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(widget.mealTitle, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    ),
+                    FutureBuilder<bool>(
+                      future: widget.isFavorite,  
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return CircularProgressIndicator(); 
+                        } else if (snapshot.hasError) {
+                          return Icon(Icons.error, color: Colors.red); 
+                        }
+                        return FavoriteIconWidget(
+                          isFavorite: snapshot.data ?? false, 
+                          onFavoriteChanged: widget.onFavoriteButtonClicked,
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.mealTitle,
-                        style: theme.bodyNeutralDefault.paragraphM,
-                      ),
-                      FavoriteIconWidget()
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
+          ),
           ),
         ),
       ),
