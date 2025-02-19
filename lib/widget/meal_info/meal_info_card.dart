@@ -8,10 +8,10 @@ class MealInfoCard extends StatefulWidget {
   final String mealImage;
   final String mealTitle;
   final String? instructions;
-  final Future<bool> isFavorite;
+  final bool isFavorite;
   final VoidCallback? onMealCardTapped;
   final VoidCallback? onFavoriteButtonClicked;
-  
+
   const MealInfoCard({
     required this.mealId,
     required this.mealImage,
@@ -54,37 +54,27 @@ class _MealInfoCardState extends State<MealInfoCard> {
               boxShadow: theme.effects.elevation2,
             ),
             child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(child: Image.network(widget.mealImage, fit: BoxFit.cover)),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(widget.mealTitle, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                    ),
-                    FutureBuilder<bool>(
-                      future: widget.isFavorite,  
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CircularProgressIndicator(); 
-                        } else if (snapshot.hasError) {
-                          return Icon(Icons.error, color: Colors.red); 
-                        }
-                        return FavoriteIconWidget(
-                          isFavorite: snapshot.data ?? false, 
-                          onFavoriteChanged: widget.onFavoriteButtonClicked,
-                        );
-                      },
-                    ),
-                  ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: Image.network(widget.mealImage, fit: BoxFit.cover)),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(widget.mealTitle, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      ),
+                      FavoriteIconWidget(
+                        isFavorite: widget.isFavorite,
+                        onFavoriteChanged: widget.onFavoriteButtonClicked,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
           ),
         ),
       ),

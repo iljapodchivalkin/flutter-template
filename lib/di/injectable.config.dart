@@ -69,6 +69,8 @@ import 'package:flutter_template/viewmodel/log_detail/log_detail_viewmodel.dart'
     as _i114;
 import 'package:flutter_template/viewmodel/login/login_viewmodel.dart' as _i681;
 import 'package:flutter_template/viewmodel/logs/logs_viewmodel.dart' as _i310;
+import 'package:flutter_template/viewmodel/meals/favorite_meals_viewmodel.dart'
+    as _i724;
 import 'package:flutter_template/viewmodel/meals/meals_detail_screen_viewmodel.dart'
     as _i134;
 import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart'
@@ -270,6 +272,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i861.MainNavigator>(),
               gh<_i735.MealsRepository>(),
             ));
+    gh.factory<_i724.FavoriteMealsViewModel>(() => _i724.FavoriteMealsViewModel(
+          gh<_i861.MainNavigator>(),
+          gh<_i735.MealsRepository>(),
+        ));
     return this;
   }
 }

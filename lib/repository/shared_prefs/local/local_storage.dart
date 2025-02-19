@@ -24,9 +24,9 @@ abstract class LocalStorage {
 
   Future<String?> getFavoriteMealById(String? id);
 
-  Future<void> addMealToFavorites(String id);
+  Future<List<String>> addMealToFavorites(String id);
 
-  Future<void> deleteMealFromFavorites(String id);
+  Future<List<String>> deleteMealFromFavorites(String id);
 }
 
 class _LocalStorage implements LocalStorage {
@@ -85,31 +85,33 @@ class _LocalStorage implements LocalStorage {
   @override
   Future<String?> getFavoriteMealById(String? id) async {
     final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
-    final favoriteMealsList = favoriteMeals.split(',');
+    final favoriteMealsList = favoriteMeals.isEmpty ? <String>[] : favoriteMeals.split(',');
     return favoriteMealsList.firstWhereOrNull((itemId) => itemId == id);
   }
 
   @override
-  Future<void> addMealToFavorites(String id) async {
+  Future<List<String>> addMealToFavorites(String id) async {
     final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
-    final favoriteMealsList = favoriteMeals.split(',');
+    final favoriteMealsList = favoriteMeals.isEmpty ? <String>[] : favoriteMeals.split(',');
     favoriteMealsList.add(id);
 
     await _sharedPreferences.saveString(
       key: _favoriteMealsKey,
       value: favoriteMealsList.join(','),
     );
+    return favoriteMealsList;
   }
 
   @override
-  Future<void> deleteMealFromFavorites(String id) async {
+  Future<List<String>> deleteMealFromFavorites(String id) async {
     final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
-    final favoriteMealsList = favoriteMeals.split(',');
+    final favoriteMealsList = favoriteMeals.isEmpty ? <String>[] : favoriteMeals.split(',');
     favoriteMealsList.remove(id);
 
     await _sharedPreferences.saveString(
       key: _favoriteMealsKey,
       value: favoriteMealsList.join(','),
     );
+    return favoriteMealsList;
   }
 }

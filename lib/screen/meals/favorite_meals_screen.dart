@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/di/injectable.dart';
-import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart';
-import 'package:flutter_template/widget/library/flutter_template_progress_indicator.dart';
+import 'package:flutter_template/viewmodel/meals/favorite_meals_viewmodel.dart';
+//import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart';
+//import 'package:flutter_template/widget/library/flutter_template_progress_indicator.dart';
 import 'package:flutter_template/widget/meal_info/meal_info_card.dart';
 import 'package:flutter_template/widget/provider/provider_widget.dart';
 
@@ -15,7 +16,7 @@ class FavoriteMealsScreen extends StatefulWidget {
 class _FavoriteMealsScreenState extends State<FavoriteMealsScreen> {
   @override
   Widget build(BuildContext context) {
-    return ProviderWidget<MealsViewModel>(
+    return ProviderWidget<FavoriteMealsViewModel>(
       create: () => getIt()..init(),
       childBuilderWithViewModel: (context, viewModel, theme, localization) => Scaffold(
         appBar: AppBar(
@@ -30,9 +31,9 @@ class _FavoriteMealsScreenState extends State<FavoriteMealsScreen> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [          
+              children: [
                 SizedBox(height: 32),
-                if (viewModel.isLoading == true) ...[FlutterTemplateProgressIndicator(dark: true)],
+                //if (viewModel.isLoading == true) ...[FlutterTemplateProgressIndicator(dark: true)],
                 //menu items
                 Expanded(
                   child: GridView.builder(

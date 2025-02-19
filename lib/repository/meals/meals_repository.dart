@@ -2,6 +2,7 @@ import 'package:flutter_template/model/webservice/meal/meal.dart';
 import 'package:flutter_template/repository/shared_prefs/local/local_storage.dart';
 import 'package:flutter_template/webservice/meal/meal_service.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 @lazySingleton
 abstract class MealsRepository {
@@ -24,13 +25,17 @@ abstract class MealsRepository {
 
   Future<void> deleteMealFromFavorites(String id);
 
-  Future<bool> isMealFavorite(String id);
-
+  Stream<List<String>> get favoriteMealStream;
 }
 
 class _MealRepository implements MealsRepository {
   final MealService _service;
   final LocalStorage _storage;
+
+  final _favoriteMealStream = BehaviorSubject<List<String>>();
+
+  @override
+  Stream<List<String>> get favoriteMealStream => _favoriteMealStream.stream;
 
   _MealRepository(this._service, this._storage);
 
@@ -68,24 +73,18 @@ class _MealRepository implements MealsRepository {
   @override
   Future<void> addMealToFavorites(String id) async {
     final result = await _storage.addMealToFavorites(id);
-    return result;
+    _favoriteMealStream.add(result);
   }
 
   @override
   Future<void> deleteMealFromFavorites(String id) async {
     final result = await _storage.deleteMealFromFavorites(id);
-    return result;
-  }
-
-  @override
-  Future<bool> isMealFavorite(String id) async {
-    final favoriteMeals =  await _storage.getFavoriteMeals();
-    return favoriteMeals.contains(id);
+    _favoriteMealStream.add(result);
   }
 
   //voor het ophalen van de favoriete meal zelf
   @override
-  Future<Meal?> getFavoriteMealById(String? id) async {
+  Future<Meal?> getFavoriteMealById(String id) async {
     final foundId = await _storage.getFavoriteMealById(id);
     final result = await _service.getMealById(id: foundId!);
     return result.meals?.first;
