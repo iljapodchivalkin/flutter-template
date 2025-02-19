@@ -23,9 +23,11 @@ class MealsViewModel with ChangeNotifierEx {
   bool _isLoading = false;
 
   final _meals = <Meal>[];
+  final _favoriteMeals = <Meal>[];
   MealFilterOptions? _selectedType;
 
   List<Meal> get meals => _meals;
+  List<Meal> get favoriteMeals => _favoriteMeals;
   bool get isLoading => _isLoading;
   MealsViewModel(
     this._navigator,
@@ -94,7 +96,6 @@ class MealsViewModel with ChangeNotifierEx {
   }
 
   void getAllFavoriteMeals(){
-    _mealsRepo.getFavoriteMeals();
   }
   
 
@@ -105,10 +106,8 @@ class MealsViewModel with ChangeNotifierEx {
 void onFavoriteButtonClicked(String id) async {
   if (await isMealFavorite(id)) {
     await _mealsRepo.deleteMealFromFavorites(id);
-    print("Meal with id $id deleted from favorites list");
   } else {
     await _mealsRepo.addMealToFavorites(id);
-    print("Meal with id $id added to favorites list");
   }
   notifyListeners();
 }

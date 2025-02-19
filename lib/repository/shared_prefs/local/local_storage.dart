@@ -22,7 +22,7 @@ abstract class LocalStorage {
 
   Future<List<String>> getFavoriteMeals();
 
-  Future<String?> getFavoriteMealById(String id);
+  Future<String?> getFavoriteMealById(String? id);
 
   Future<void> addMealToFavorites(String id);
 
@@ -83,7 +83,7 @@ class _LocalStorage implements LocalStorage {
   }
 
   @override
-  Future<String?> getFavoriteMealById(String id) async {
+  Future<String?> getFavoriteMealById(String? id) async {
     final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
     final favoriteMealsList = favoriteMeals.split(',');
     return favoriteMealsList.firstWhereOrNull((itemId) => itemId == id);

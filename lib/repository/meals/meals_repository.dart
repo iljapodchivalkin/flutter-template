@@ -16,9 +16,9 @@ abstract class MealsRepository {
 
   Future<Meal?> getMealById(String id);
 
-  Future<List<String>> getFavoriteMeals();
+  Future<List<String>> getFavoriteMealsList();
 
-  Future<String?> getFavoriteMealById(String id);
+  Future<Meal?> getFavoriteMealById(String id);
 
   Future<void> addMealToFavorites(String id);
 
@@ -58,15 +58,10 @@ class _MealRepository implements MealsRepository {
     return result.meals?.first;
   }
 
+  //voor lijst met favoriete id's
   @override
-  Future<List<String>> getFavoriteMeals() async {
+  Future<List<String>> getFavoriteMealsList() async {
     final result = await _storage.getFavoriteMeals();
-    return result;
-  }
-
-  @override
-  Future<String?> getFavoriteMealById(String id) async {
-    final result = await _storage.getFavoriteMealById(id);
     return result;
   }
 
@@ -86,5 +81,13 @@ class _MealRepository implements MealsRepository {
   Future<bool> isMealFavorite(String id) async {
     final favoriteMeals =  await _storage.getFavoriteMeals();
     return favoriteMeals.contains(id);
+  }
+
+  //voor het ophalen van de favoriete meal zelf
+  @override
+  Future<Meal?> getFavoriteMealById(String? id) async {
+    final foundId = await _storage.getFavoriteMealById(id);
+    final result = await _service.getMealById(id: foundId!);
+    return result.meals?.first;
   }
 }

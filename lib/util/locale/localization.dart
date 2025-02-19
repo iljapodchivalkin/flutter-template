@@ -357,6 +357,16 @@ class Localization {
   /// en:  **'Close'**
   String get close => _t(LocalizationKeys.close);
 
+  /// Translations:
+  ///
+  /// en:  **'Meals'**
+  String get mealsPage => _t(LocalizationKeys.mealsPage);
+
+  /// Translations:
+  ///
+  /// en:  **'Favorite Meals'**
+  String get favoriteMeals => _t(LocalizationKeys.favoriteMeals);
+
   String getTranslation(String key, {List<dynamic>? args}) => _t(key, args: args ?? <dynamic>[]);
 
 }
