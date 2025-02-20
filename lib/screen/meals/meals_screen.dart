@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_navigation_generator_annotations/flutter_navigation_generator_annotations.dart';
 import 'package:flutter_template/di/injectable.dart';
@@ -15,6 +17,14 @@ class MealsScreen extends StatefulWidget {
 }
 
 class _MealsScreenState extends State<MealsScreen> {
+  Timer? _debounce;
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<MealsViewModel>(
@@ -34,20 +44,16 @@ class _MealsScreenState extends State<MealsScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 32),
-                //dropdown menu & search bar
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      DropdownMenu(    
+                      DropdownMenu(
                         onSelected: (value) => viewModel.onTypeSelected(value),
                         menuStyle: MenuStyle(
                           shape: WidgetStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(30)),
-                              side: BorderSide.none
-                            ),
+                            RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)), side: BorderSide.none),
                           ),
                         ),
                         dropdownMenuEntries: MealFilterOptions.values
@@ -59,17 +65,23 @@ class _MealsScreenState extends State<MealsScreen> {
                       ),
                       SizedBox(width: 16),
                       Expanded(
-                        child: SearchBar(
-                          hintText: localization.enterSearchQuery,
-                          onSubmitted: (text) => viewModel.searchMeal(text),
+                        child: Expanded(
+                          child: SearchBar(
+                            hintText: localization.enterSearchQuery,
+                            onChanged: (text) {
+                              if (_debounce?.isActive ?? false) _debounce?.cancel();
+                              _debounce = Timer(const Duration(milliseconds: 500), () {
+                                viewModel.searchMeal(text);
+                              });
+                            },
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),        
+                ),
                 SizedBox(height: 32),
                 if (viewModel.isLoading == true) ...[FlutterTemplateProgressIndicator(dark: true)],
-                //menu items
                 Expanded(
                   child: GridView.builder(
                     itemCount: viewModel.meals.length,

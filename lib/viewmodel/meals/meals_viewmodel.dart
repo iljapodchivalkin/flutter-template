@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_template/model/webservice/meal/meal.dart';
 import 'package:flutter_template/navigator/main_navigator.dart';
 import 'package:flutter_template/repository/meals/meals_repository.dart';
@@ -64,6 +66,7 @@ class MealsViewModel with ChangeNotifierEx {
         break;
     }
     _setLoading(false);
+    
   }
 
   Future<void> _getMealsByName(String name) => _getMeals(() => _mealsRepo.getMealsByName(name));
