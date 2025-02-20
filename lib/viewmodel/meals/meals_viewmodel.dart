@@ -24,14 +24,16 @@ class MealsViewModel with ChangeNotifierEx {
   final MealsRepository _mealsRepo;
 
   final _meals = <Meal>[];
-  final _allFavoriteIds = <String>[];
+  //final _allFavoriteIds = <String>[];
 
   bool _isLoading = false;
   MealFilterOptions? _selectedType;
 
   List<Meal> get meals => _meals;
 
-  List<String> get allFavoriteIds => _allFavoriteIds;
+  final _favoriteMeals = <Meal>[];
+
+  List<Meal> get favoriteMeals => _favoriteMeals;
 
   bool get isLoading => _isLoading;
 
@@ -45,7 +47,7 @@ class MealsViewModel with ChangeNotifierEx {
     await getAllFavoriteMeals();
   }
 
-  Future<void> onData(List<String> dataList) async {
+  Future<void> onData(List<Meal> dataList) async {
     await getAllFavoriteMeals(dataList);
   }
 
@@ -66,7 +68,6 @@ class MealsViewModel with ChangeNotifierEx {
         break;
     }
     _setLoading(false);
-    
   }
 
   Future<void> _getMealsByName(String name) => _getMeals(() => _mealsRepo.getMealsByName(name));
@@ -102,21 +103,23 @@ class MealsViewModel with ChangeNotifierEx {
     notifyListeners();
   }
 
-  bool isMealFavorite(String id) => _allFavoriteIds.contains(id);
+  bool isMealFavorite(Meal meal) {
+    final contains =  _favoriteMeals.where((favoriteMeal) => favoriteMeal.id == meal.id).isNotEmpty;
+    return contains;
+  }
 
   //favorite button click
-  Future<void> onFavoriteButtonClicked(String id) async {
-    if (isMealFavorite(id)) {
-      await _mealsRepo.deleteMealFromFavorites(id);
+  Future<void> onFavoriteButtonClicked(Meal meal) async {
+    if (isMealFavorite(meal)) {
+      await _mealsRepo.deleteMealFromFavorites(meal.id);
     } else {
-      await _mealsRepo.addMealToFavorites(id);
+      await _mealsRepo.addMealToFavorites(meal);
     }
   }
 
   //voor het verkrijgen van de favoriete meals zelf
-  Future<void> getAllFavoriteMeals([List<String>? favoriteMealIds]) async {
-    final favoriteMeals = favoriteMealIds ?? await _mealsRepo.getFavoriteMealsList();
-    _allFavoriteIds.replaceAll(favoriteMeals);
+  Future<void> getAllFavoriteMeals([List<Meal>? favoriteMealIds]) async {
+    _favoriteMeals.replaceAll(_mealsRepo.getFavoriteMealsList());
     if (disposed) return;
     notifyListeners();
   }

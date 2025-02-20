@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/model/webservice/meal/meal.dart';
 import 'package:flutter_template/repository/secure_storage/auth/auth_storage.dart';
 import 'package:flutter_template/util/extension/theme_mode_extension.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
@@ -20,20 +23,20 @@ abstract class LocalStorage {
 
   Future<void> updateHasAnalyticsPermission(bool? permissionGranted);
 
-  Future<List<String>> getFavoriteMeals();
+  List<Meal> getFavoriteMeals();
 
-  Future<String?> getFavoriteMealById(String? id);
+  Future<Meal?> getFavoriteMealById(String? id);
 
-  Future<List<String>> addMealToFavorites(String id);
+  Future<List<Meal>> addMealToFavorites(Meal meal);
 
-  Future<List<String>> deleteMealFromFavorites(String id);
+  Future<List<Meal>> deleteMealFromFavorites(String? id);
 }
 
 class _LocalStorage implements LocalStorage {
   static const _uninstallCheckKey = 'UNINSTALL_CHECK';
   static const _appearanceThemeKey = 'APPEARANCE_THEME';
   static const _analyticsPermissionKey = 'HAS_ANALYTICS_PERMISSION';
-  static const _favoriteMealsKey = 'FAVORITE_MEALS';
+  static const _favoriteMealsKey = 'FAVORITE_MEAL_OBJECT';
 
   final AuthStorage _authStorage;
   final SharedPreferenceStorage _sharedPreferences;
@@ -77,41 +80,44 @@ class _LocalStorage implements LocalStorage {
   bool? get hasAnalyticsPermission => _sharedPreferences.getBoolean(_analyticsPermissionKey);
 
   @override
-  Future<List<String>> getFavoriteMeals() async {
-    final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
-    return favoriteMeals.split(',');
+  List<Meal> getFavoriteMeals() => _getFavoriteMealsFromStorage();
+
+  @override
+  Future<Meal?> getFavoriteMealById(String? id) async {
+    final favoriteMealsList = _getFavoriteMealsFromStorage();
+    return favoriteMealsList.firstWhereOrNull((meal) => meal.id == id);
   }
 
   @override
-  Future<String?> getFavoriteMealById(String? id) async {
-    final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
-    final favoriteMealsList = favoriteMeals.isEmpty ? <String>[] : favoriteMeals.split(',');
-    return favoriteMealsList.firstWhereOrNull((itemId) => itemId == id);
+  Future<List<Meal>> addMealToFavorites(Meal meal) async {
+    final favoriteMeals = _getFavoriteMealsFromStorage();
+    favoriteMeals.add(meal);
+    final mappedMeals = favoriteMeals.map((meal) => meal.toJson()).toList();
+    await _sharedPreferences.saveString(
+      key: _favoriteMealsKey,
+      value: jsonEncode(mappedMeals),
+    );
+    return favoriteMeals;
   }
 
   @override
-  Future<List<String>> addMealToFavorites(String id) async {
-    final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
-    final favoriteMealsList = favoriteMeals.isEmpty ? <String>[] : favoriteMeals.split(',');
-    favoriteMealsList.add(id);
+  Future<List<Meal>> deleteMealFromFavorites(String? id) async {
+    final favoriteMeals = _getFavoriteMealsFromStorage();
+    favoriteMeals.removeWhere((meal) => meal.id == id);
+    final mappedMeals = favoriteMeals.map((meal) => meal.toJson()).toList();
 
     await _sharedPreferences.saveString(
       key: _favoriteMealsKey,
-      value: favoriteMealsList.join(','),
+      value: jsonEncode(mappedMeals),
     );
-    return favoriteMealsList;
+    return favoriteMeals;
   }
 
-  @override
-  Future<List<String>> deleteMealFromFavorites(String id) async {
-    final favoriteMeals = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
-    final favoriteMealsList = favoriteMeals.isEmpty ? <String>[] : favoriteMeals.split(',');
-    favoriteMealsList.remove(id);
-
-    await _sharedPreferences.saveString(
-      key: _favoriteMealsKey,
-      value: favoriteMealsList.join(','),
-    );
-    return favoriteMealsList;
+  List<Meal> _getFavoriteMealsFromStorage() {
+    final mealsString = _sharedPreferences.getString(_favoriteMealsKey) ?? '';
+    if (mealsString.isEmpty) return [];
+    final mealsList = jsonDecode(mealsString) as List;
+    final favoriteMeals = mealsList.map((meal) => Meal.fromJson(meal as Map<String, dynamic>)).toList();
+    return favoriteMeals;
   }
 }

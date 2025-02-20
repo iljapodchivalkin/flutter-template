@@ -1,7 +1,6 @@
 import 'package:flutter_template/model/webservice/meal/meal.dart';
 import 'package:flutter_template/navigator/main_navigator.dart';
 import 'package:flutter_template/repository/meals/meals_repository.dart';
-import 'package:flutter_template/util/logging/flutter_template_logger.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
 import 'package:injectable/injectable.dart';
 
@@ -11,11 +10,8 @@ class FavoriteMealsViewModel with ChangeNotifierEx {
   final MealsRepository _mealsRepo;
 
   final _favoriteMeals = <Meal>[];
-  final _allFavoriteIds = <String>[];
 
   List<Meal> get favoriteMeals => _favoriteMeals;
-
-  List<String> get allFavoriteIds => _allFavoriteIds;
 
   FavoriteMealsViewModel(
     this._navigator,
@@ -24,41 +20,28 @@ class FavoriteMealsViewModel with ChangeNotifierEx {
 
   Future<void> init() async {
     registerDisposeStream(_mealsRepo.favoriteMealStream.listen(onData));
-    await getAllFavoriteMeals();
+    getAllFavoriteMeals();
   }
 
-  Future<void> onData(List<String> dataList) async {
-    await getAllFavoriteMeals(dataList);
+  Future<void> onData(List<Meal> dataList) async {
+    _favoriteMeals.replaceAll(dataList);
+    if (disposed) return;
+    notifyListeners();
   }
 
-  bool isMealFavorite(String id) => _allFavoriteIds.contains(id);
+  bool isMealFavorite(Meal meal) => _favoriteMeals.contains(meal);
 
   //favorite button click
-  Future<void> onFavoriteButtonClicked(String id) async {
-    if (isMealFavorite(id)) {
-      await _mealsRepo.deleteMealFromFavorites(id);
+  Future<void> onFavoriteButtonClicked(Meal meal) async {
+    if (isMealFavorite(meal)) {
+      await _mealsRepo.deleteMealFromFavorites(meal.id);
     } else {
-      await _mealsRepo.addMealToFavorites(id);
+      await _mealsRepo.addMealToFavorites(meal);
     }
   }
 
-  //voor het verkrijgen van de favoriete meals zelf
-  Future<void> getAllFavoriteMeals([List<String>? dataList]) async {
-    final allFavoriteIds = dataList ?? await _mealsRepo.getFavoriteMealsList();
-    final tempList = <Meal>[];
-    for (final id in allFavoriteIds) {
-      try {
-        final foundMeal = await _mealsRepo.getFavoriteMealById(id);
-        if (foundMeal == null) {
-          throw ArgumentError('Meal is null');
-        }
-        tempList.add(foundMeal);
-      } catch (e, trace) {
-        FlutterTemplateLogger.logError('Error: failed to get meal with id $id', error: e, stackTrace: trace);
-      }
-    }
-    _favoriteMeals.replaceAll(tempList);
-    _allFavoriteIds.replaceAll(allFavoriteIds);
+  void getAllFavoriteMeals() {
+    _favoriteMeals.replaceAll(_mealsRepo.getFavoriteMealsList());
     if (disposed) return;
     notifyListeners();
   }

@@ -7,7 +7,7 @@ import 'package:flutter_template/widget/library/flutter_template_button.dart';
 import 'package:flutter_template/widget/provider/provider_widget.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
 
-@flutterRoute
+@FlutterRoute(routeName: 'meal/:mealId')
 class MealDetailScreen extends StatelessWidget {
   final String mealId;
 
@@ -31,7 +31,7 @@ class MealDetailScreen extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                   child: Image.network(
-                    viewModel.mealImage?? '',
+                    viewModel.mealImage ?? '',
                     fit: BoxFit.cover,
                     width: double.infinity,
                     height: 240,
@@ -48,7 +48,7 @@ class MealDetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        viewModel.mealName?? '',
+                        viewModel.mealName ?? '',
                         style: theme.bodyNeutralDefault.headingXs,
                         textAlign: TextAlign.center,
                       ),

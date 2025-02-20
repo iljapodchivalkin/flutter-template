@@ -33,8 +33,6 @@ class _FavoriteMealsScreenState extends State<FavoriteMealsScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 32),
-                //if (viewModel.isLoading == true) ...[FlutterTemplateProgressIndicator(dark: true)],
-                //menu items
                 Expanded(
                   child: GridView.builder(
                     itemCount: viewModel.favoriteMeals.length,
@@ -46,9 +44,9 @@ class _FavoriteMealsScreenState extends State<FavoriteMealsScreen> {
                         mealImage: meal.image,
                         mealTitle: meal.name,
                         instructions: meal.instructions,
-                        isFavorite: viewModel.isMealFavorite(meal.id),
+                        isFavorite: viewModel.isMealFavorite(meal),
                         onMealCardTapped: () => viewModel.onMealCardTapped(meal),
-                        onFavoriteButtonClicked: () => viewModel.onFavoriteButtonClicked(meal.id),
+                        onFavoriteButtonClicked: () => viewModel.onFavoriteButtonClicked(meal),
                       );
                     },
                   ),

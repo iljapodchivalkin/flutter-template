@@ -17,25 +17,25 @@ abstract class MealsRepository {
 
   Future<Meal?> getMealById(String id);
 
-  Future<List<String>> getFavoriteMealsList();
+  List<Meal> getFavoriteMealsList();
 
   Future<Meal?> getFavoriteMealById(String id);
 
-  Future<void> addMealToFavorites(String id);
+  Future<void> addMealToFavorites(Meal meal);
 
   Future<void> deleteMealFromFavorites(String id);
 
-  Stream<List<String>> get favoriteMealStream;
+  Stream<List<Meal>> get favoriteMealStream;
 }
 
 class _MealRepository implements MealsRepository {
   final MealService _service;
   final LocalStorage _storage;
 
-  final _favoriteMealStream = BehaviorSubject<List<String>>();
+  final _favoriteMealStream = BehaviorSubject<List<Meal>>();
 
   @override
-  Stream<List<String>> get favoriteMealStream => _favoriteMealStream.stream;
+  Stream<List<Meal>> get favoriteMealStream => _favoriteMealStream.stream;
 
   _MealRepository(this._service, this._storage);
 
@@ -65,14 +65,12 @@ class _MealRepository implements MealsRepository {
 
   //voor lijst met favoriete id's
   @override
-  Future<List<String>> getFavoriteMealsList() async {
-    final result = await _storage.getFavoriteMeals();
-    return result;
-  }
+  List<Meal> getFavoriteMealsList() => _storage.getFavoriteMeals();
+  
 
   @override
-  Future<void> addMealToFavorites(String id) async {
-    final result = await _storage.addMealToFavorites(id);
+  Future<void> addMealToFavorites(Meal meal) async {
+    final result = await _storage.addMealToFavorites(meal);
     _favoriteMealStream.add(result);
   }
 
@@ -85,8 +83,7 @@ class _MealRepository implements MealsRepository {
   //voor het ophalen van de favoriete meal zelf
   @override
   Future<Meal?> getFavoriteMealById(String id) async {
-    final foundId = await _storage.getFavoriteMealById(id);
-    final result = await _service.getMealById(id: foundId!);
-    return result.meals?.first;
+    final foundMeal = await _storage.getFavoriteMealById(id);
+    return foundMeal;
   }
 }
