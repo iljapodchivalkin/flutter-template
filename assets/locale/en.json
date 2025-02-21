@@ -58,6 +58,7 @@
   "enter_search_query": "Enter your search query here...",
   "instructions": "Instructions",
   "no_instructions_available": "No instructions available",
-  "close": "Close"
-
+  "close": "Close",
+  "meals_page": "Meals",
+  "favorite_meals": "Favorite Meals"
 }

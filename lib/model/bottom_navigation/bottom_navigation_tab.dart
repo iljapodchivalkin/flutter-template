@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/screen/debug/debug_screen.dart';
-import 'package:flutter_template/screen/todo/todo_list/todo_list_screen.dart';
+import 'package:flutter_template/screen/meals/favorite_meals_screen.dart';
+import 'package:flutter_template/screen/meals/meals_screen.dart';
+
 import 'package:flutter_template/util/locale/localization_keys.dart';
-import 'package:icapps_icons/icapps_icons.dart';
+
 
 enum BottomNavigationTab {
-  todo(
-    iconActive: IcappsIcons.alarmFilled,
-    iconInactive: IcappsIcons.alarm,
-    labelKey: LocalizationKeys.todoTitle,
+  meals(
+    iconActive: Icons.fastfood_outlined,
+    iconInactive: Icons.fastfood_outlined,
+    labelKey: LocalizationKeys.mealsPage
   ),
-  settings(
-    iconActive: IcappsIcons.cogwheel1Filled,
-    iconInactive: IcappsIcons.cogwheel1,
-    labelKey: LocalizationKeys.settingsTitle,
+  favorites(
+    iconActive: Icons.star,
+    iconInactive: Icons.star,
+    labelKey: LocalizationKeys.favoriteMeals
   );
 
   final IconData iconActive;
@@ -26,12 +27,12 @@ enum BottomNavigationTab {
     required this.labelKey,
   });
 
-  static BottomNavigationTab get defaultTab => BottomNavigationTab.todo;
+  static BottomNavigationTab get defaultTab => BottomNavigationTab.meals;
 }
 
 extension BottomNavigationExtension on BottomNavigationTab {
   Widget childBuilder(BuildContext context) => switch (this) {
-        BottomNavigationTab.todo => const TodoListScreen(),
-        BottomNavigationTab.settings => const DebugScreen(),
+        BottomNavigationTab.meals => const MealsScreen(),
+        BottomNavigationTab.favorites => const FavoriteMealsScreen()
       };
 }

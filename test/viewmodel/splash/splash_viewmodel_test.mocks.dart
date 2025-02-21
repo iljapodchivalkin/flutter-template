@@ -65,6 +65,44 @@ class MockLocalStorage extends _i1.Mock implements _i2.LocalStorage {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<List<String>> getFavoriteMeals() => (super.noSuchMethod(
+        Invocation.method(
+          #getFavoriteMeals,
+          [],
+        ),
+        returnValue: _i3.Future<List<String>>.value(<String>[]),
+      ) as _i3.Future<List<String>>);
+
+  @override
+  _i3.Future<String?> getFavoriteMealById(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getFavoriteMealById,
+          [id],
+        ),
+        returnValue: _i3.Future<String?>.value(),
+      ) as _i3.Future<String?>);
+
+  @override
+  _i3.Future<void> addMealToFavorites(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #addMealToFavorites,
+          [id],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> deleteMealFromFavorites(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteMealFromFavorites,
+          [id],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
 
 /// A class which mocks [OnboardingNavigator].

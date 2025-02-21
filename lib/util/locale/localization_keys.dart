@@ -303,4 +303,14 @@ class LocalizationKeys {
   /// en:  **'Close'**
   static const close = 'close';
 
+  /// Translations:
+  ///
+  /// en:  **'Meals'**
+  static const mealsPage = 'meals_page';
+
+  /// Translations:
+  ///
+  /// en:  **'Favorite Meals'**
+  static const favoriteMeals = 'favorite_meals';
+
 }

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_navigation_generator_annotations/flutter_navigation_generator_annotations.dart';
 import 'package:flutter_template/di/injectable.dart';
 import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart';
 import 'package:flutter_template/widget/meal_info/meal_info_card.dart';
+import 'package:flutter_template/widget/meal_info/meal_list_card.dart';
 import 'package:flutter_template/widget/provider/provider_widget.dart';
 
 @flutterRoute
@@ -14,6 +17,21 @@ class MealsScreen extends StatefulWidget {
 }
 
 class _MealsScreenState extends State<MealsScreen> {
+  Timer? _debounce;
+  bool _isGridView = true;
+
+  void _onListTypeToggled() {
+    setState(() {
+      _isGridView = !_isGridView;
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<MealsViewModel>(
@@ -24,6 +42,15 @@ class _MealsScreenState extends State<MealsScreen> {
             localization.appName,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          actions: [
+            Container(
+              margin: EdgeInsets.only(right: 32),
+              child: IconButton(
+                icon: Icon(_isGridView ? Icons.view_list : Icons.grid_view),
+                onPressed: _onListTypeToggled,
+              ),
+            ),
+          ],
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {
@@ -33,8 +60,6 @@ class _MealsScreenState extends State<MealsScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 32),
-
-                //dropdown menu & search bar
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
@@ -46,6 +71,7 @@ class _MealsScreenState extends State<MealsScreen> {
                           shape: WidgetStatePropertyAll(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(Radius.circular(12)),
+                              side: BorderSide.none,
                             ),
                           ),
                         ),
@@ -60,28 +86,54 @@ class _MealsScreenState extends State<MealsScreen> {
                       Expanded(
                         child: SearchBar(
                           hintText: localization.enterSearchQuery,
-                          onSubmitted: (text) => viewModel.searchMeal(text),
+                          onChanged: (text) {
+                            if (_debounce?.isActive ?? false) _debounce?.cancel();
+                            _debounce = Timer(const Duration(milliseconds: 500), () {
+                              viewModel.searchMeal(text);
+                            });
+                          },
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 32),    
-                //menu items
+                SizedBox(height: 32),
+                if (viewModel.isLoading == true) ...[
+                  Center(child: LinearProgressIndicator()),
+                ],
                 Expanded(
-                  child: GridView.builder(
-                    itemCount: viewModel.meals.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: isLargeScreen ? 3 : 2),
-                    itemBuilder: (BuildContext context, int index) {
-                      final meal = viewModel.meals[index];
-                      return MealInfoCard(
-                        mealImage: meal.image,
-                        mealTitle: meal.name,
-                        instructions: meal.instructions,
-                        onMealCardTapped: () => viewModel.onMealCardTapped(meal),
-                      );
-                    },
-                  ),
+                  child: _isGridView
+                      ? GridView.builder(
+                          itemCount: viewModel.meals.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: isLargeScreen ? 3 : 2),
+                          itemBuilder: (BuildContext context, int index) {
+                            final meal = viewModel.meals[index];
+                            return MealInfoCard(
+                              mealId: meal.id,
+                              mealImage: meal.image,
+                              mealTitle: meal.name,
+                              instructions: meal.instructions,
+                              isFavorite: viewModel.isMealFavorite(meal),
+                              onMealCardTapped: () => viewModel.onMealCardTapped(meal),
+                              onFavoriteButtonClicked: () => viewModel.onFavoriteButtonClicked(meal),
+                            );
+                          },
+                        )
+                      : ListView.separated(
+                          itemCount: viewModel.meals.length,
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          separatorBuilder: (context, index) => SizedBox(height: 16),
+                          itemBuilder: (BuildContext context, int index) {
+                            final meal = viewModel.meals[index];
+                            return MealListCard(
+                              mealId: meal.id,
+                              mealTitle: meal.name,
+                              isFavorite: viewModel.isMealFavorite(meal),
+                              onMealCardTapped: () => viewModel.onMealCardTapped(meal),
+                              onFavoriteButtonClicked: () => viewModel.onFavoriteButtonClicked(meal),
+                            );
+                          },
+                        ),
                 ),
               ],
             );

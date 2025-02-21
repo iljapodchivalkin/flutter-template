@@ -19,7 +19,7 @@ class MainNavigator with BaseNavigator {
 
   static final List<NavigatorObserver> _navigatorObservers = [];
 
-  static String get initialRoute => FlavorConfig.isInTest() ? 'test_route' : RouteNames.mealsScreen;
+  static String get initialRoute => FlavorConfig.isInTest() ? 'test_route' : RouteNames.homeScreen;
 
   BuildContext get context => navigatorKey.currentContext!;
 

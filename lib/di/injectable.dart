@@ -64,7 +64,7 @@ abstract class RegisterModule {
 
   @lazySingleton
   FlutterSecureStorage storage() => const FlutterSecureStorage();
-
+  
   @lazySingleton
   SimpleKeyValueStorage keyValueStorage(SharedPreferenceStorage preferences, SecureStorage secure) {
     if (kIsWeb) return preferences;
