@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_template/model/webservice/meal/meal.dart';
 import 'package:flutter_template/navigator/main_navigator.dart';
 import 'package:flutter_template/repository/meals/meals_repository.dart';
@@ -24,9 +23,9 @@ class MealsViewModel with ChangeNotifierEx {
   final MealsRepository _mealsRepo;
 
   final _meals = <Meal>[];
-  //final _allFavoriteIds = <String>[];
 
   bool _isLoading = false;
+  
   MealFilterOptions? _selectedType;
 
   List<Meal> get meals => _meals;
@@ -123,4 +122,9 @@ class MealsViewModel with ChangeNotifierEx {
     if (disposed) return;
     notifyListeners();
   }
+
+  void toggleTheme(){
+
+  }
+
 }

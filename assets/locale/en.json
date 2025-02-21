@@ -60,5 +60,7 @@
   "no_instructions_available": "No instructions available",
   "close": "Close",
   "meals_page": "Meals",
-  "favorite_meals": "Favorite Meals"
+  "favorite_meals": "Favorite Meals",
+  "settings": "Settings",
+  "theme_mode": "Theme Mode"
 }

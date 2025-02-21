@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
 }
 
 class InternalApp extends StatelessWidget {
+  static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
   final Widget? home;
   final bool _isInTest;
 

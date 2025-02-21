@@ -313,4 +313,14 @@ class LocalizationKeys {
   /// en:  **'Favorite Meals'**
   static const favoriteMeals = 'favorite_meals';
 
+  /// Translations:
+  ///
+  /// en:  **'Settings'**
+  static const settings = 'settings';
+
+  /// Translations:
+  ///
+  /// en:  **'Theme Mode'**
+  static const themeMode = 'theme_mode';
+
 }

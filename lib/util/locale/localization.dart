@@ -367,6 +367,16 @@ class Localization {
   /// en:  **'Favorite Meals'**
   String get favoriteMeals => _t(LocalizationKeys.favoriteMeals);
 
+  /// Translations:
+  ///
+  /// en:  **'Settings'**
+  String get settings => _t(LocalizationKeys.settings);
+
+  /// Translations:
+  ///
+  /// en:  **'Theme Mode'**
+  String get themeMode => _t(LocalizationKeys.themeMode);
+
   String getTranslation(String key, {List<dynamic>? args}) => _t(key, args: args ?? <dynamic>[]);
 
 }
