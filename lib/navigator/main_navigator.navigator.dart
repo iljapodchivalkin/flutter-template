@@ -16,11 +16,13 @@ import '../screen/debug/debug_platform_selector_screen.dart';
 import '../screen/debug/debug_screen.dart';
 import '../screen/home/home_screen.dart';
 import '../screen/license/license_screen.dart';
+import '../screen/light_dark_mode_screen/light_dark_mode_screen.dart';
 import '../screen/log_detail/log_detail_screen.dart';
 import '../screen/login/login_screen.dart';
 import '../screen/logs/logs_screen.dart';
 import '../screen/meals/meals_screen.dart';
 import '../screen/permission/analytics_permission_screen.dart';
+import '../screen/settings/settings_screen.dart';
 import '../screen/splash/splash_screen.dart';
 import '../screen/theme_mode/theme_mode_selector.dart';
 import '../screen/todo/todo_add/todo_add_screen.dart';
@@ -35,14 +37,6 @@ mixin BaseNavigator {
     final settingsUri = Uri.parse(settings.name ?? '');
     final queryParameters = Map.from(settingsUri.queryParameters);
     switch (settingsUri.path) {
-      case RouteNames.mealDetailScreen:
-        return MaterialPageRoute<void>(
-          builder: (_) => MealDetailScreen(
-            mealId: queryParameters['mealId'] ?? arguments['mealId'] as String,
-          ),
-          settings: settings,
-          fullscreenDialog: false,
-        );
       case RouteNames.homeScreen:
         return MaterialPageRoute<void>(
           builder: (_) => HomeScreen(),
@@ -117,16 +111,38 @@ mixin BaseNavigator {
           settings: settings,
           fullscreenDialog: false,
         );
+      case RouteNames.settingsScreen:
+        return MaterialPageRoute<void>(
+          builder: (_) => SettingsScreen(),
+          settings: settings,
+          fullscreenDialog: false,
+        );
+      case RouteNames.lightDarkModeScreen:
+        return MaterialPageRoute<void>(
+          builder: (_) => LightDarkModeScreen(),
+          settings: settings,
+          fullscreenDialog: false,
+        );
+    }
+    final pathSegments = settingsUri.pathSegments;
+    if (pathSegments.length == 2) {
+      if (pathSegments[0] == 'meal') {
+        queryParameters['mealId'] = pathSegments[1];
+        return MaterialPageRoute<void>(
+          builder: (_) => MealDetailScreen(
+            mealId: queryParameters['mealId'] ?? arguments['mealId'] as String,
+          ),
+          settings: settings,
+          fullscreenDialog: false,
+        );
+      }
     }
     return null;
   }
 
   Future<void> goToMealDetailScreen({required String mealId}) async =>
       navigatorKey.currentState?.pushNamed<dynamic>(
-        Uri(
-          path: RouteNames.mealDetailScreen,
-          queryParameters: kIsWeb ? {'mealId': mealId} : null,
-        ).toString(),
+        RouteNames.mealMealId(mealId: mealId),
         arguments: {'mealId': mealId},
       );
   void goToHomeScreen() =>
@@ -195,6 +211,16 @@ mixin BaseNavigator {
         RouteNames.debugScreen,
         arguments: {},
       );
+  Future<void> goToSettingsScreen() async =>
+      navigatorKey.currentState?.pushNamed<dynamic>(
+        RouteNames.settingsScreen,
+        arguments: {},
+      );
+  Future<void> goToLightDarkModeScreen() async =>
+      navigatorKey.currentState?.pushNamed<dynamic>(
+        RouteNames.lightDarkModeScreen,
+        arguments: {},
+      );
   void goBack() => navigatorKey.currentState?.pop();
   void goBackWithResult<T>({T? result}) =>
       navigatorKey.currentState?.pop(result);
@@ -214,9 +240,6 @@ mixin BaseNavigator {
 }
 
 class RouteNames {
-  /// /meal-detail
-  static const mealDetailScreen = '/meal-detail';
-
   /// /home
   static const homeScreen = '/home';
 
@@ -252,4 +275,13 @@ class RouteNames {
 
   /// /debug
   static const debugScreen = '/debug';
+
+  /// /settings
+  static const settingsScreen = '/settings';
+
+  /// /light-dark-mode
+  static const lightDarkModeScreen = '/light-dark-mode';
+
+  /// /meal/:mealId
+  static String mealMealId({required String mealId}) => '/meal/$mealId';
 }

@@ -11,12 +11,13 @@ import 'package:flutter/material.dart' as _i2;
 import 'package:flutter_template/database/flutter_template_database.dart'
     as _i3;
 import 'package:flutter_template/model/snackbar/snackbar_data.dart' as _i8;
+import 'package:flutter_template/model/webservice/meal/meal.dart' as _i11;
 import 'package:flutter_template/navigator/main_navigator.dart' as _i7;
 import 'package:flutter_template/repository/debug/debug_repository.dart' as _i9;
 import 'package:flutter_template/repository/shared_prefs/local/local_storage.dart'
     as _i10;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:mockito/src/dummies.dart' as _i12;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -492,6 +493,26 @@ class MockMainNavigator extends _i1.Mock implements _i7.MainNavigator {
       ) as _i6.Future<void>);
 
   @override
+  _i6.Future<void> goToSettingsScreen() => (super.noSuchMethod(
+        Invocation.method(
+          #goToSettingsScreen,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> goToLightDarkModeScreen() => (super.noSuchMethod(
+        Invocation.method(
+          #goToLightDarkModeScreen,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
   void goBack() => super.noSuchMethod(
         Invocation.method(
           #goBack,
@@ -634,42 +655,42 @@ class MockLocalStorage extends _i1.Mock implements _i10.LocalStorage {
       ) as _i6.Future<void>);
 
   @override
-  _i6.Future<List<String>> getFavoriteMeals() => (super.noSuchMethod(
+  List<_i11.Meal> getFavoriteMeals() => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMeals,
           [],
         ),
-        returnValue: _i6.Future<List<String>>.value(<String>[]),
-      ) as _i6.Future<List<String>>);
+        returnValue: <_i11.Meal>[],
+      ) as List<_i11.Meal>);
 
   @override
-  _i6.Future<String?> getFavoriteMealById(String? id) => (super.noSuchMethod(
+  _i6.Future<_i11.Meal?> getFavoriteMealById(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMealById,
           [id],
         ),
-        returnValue: _i6.Future<String?>.value(),
-      ) as _i6.Future<String?>);
+        returnValue: _i6.Future<_i11.Meal?>.value(),
+      ) as _i6.Future<_i11.Meal?>);
 
   @override
-  _i6.Future<void> addMealToFavorites(String? id) => (super.noSuchMethod(
+  _i6.Future<List<_i11.Meal>> addMealToFavorites(_i11.Meal? meal) =>
+      (super.noSuchMethod(
         Invocation.method(
           #addMealToFavorites,
-          [id],
+          [meal],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i6.Future<List<_i11.Meal>>.value(<_i11.Meal>[]),
+      ) as _i6.Future<List<_i11.Meal>>);
 
   @override
-  _i6.Future<void> deleteMealFromFavorites(String? id) => (super.noSuchMethod(
+  _i6.Future<List<_i11.Meal>> deleteMealFromFavorites(String? id) =>
+      (super.noSuchMethod(
         Invocation.method(
           #deleteMealFromFavorites,
           [id],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i6.Future<List<_i11.Meal>>.value(<_i11.Meal>[]),
+      ) as _i6.Future<List<_i11.Meal>>);
 }
 
 /// A class which mocks [FlutterTemplateDatabase].
@@ -766,7 +787,7 @@ class MockFlutterTemplateDatabase extends _i1.Mock
   @override
   _i4.SqlTypes get typeMapping => (super.noSuchMethod(
         Invocation.getter(#typeMapping),
-        returnValue: _i11.dummyValue<_i4.SqlTypes>(
+        returnValue: _i12.dummyValue<_i4.SqlTypes>(
           this,
           Invocation.getter(#typeMapping),
         ),
@@ -875,7 +896,7 @@ class MockFlutterTemplateDatabase extends _i1.Mock
             alias,
           ],
         ),
-        returnValue: _i11.dummyValue<T>(
+        returnValue: _i12.dummyValue<T>(
           this,
           Invocation.method(
             #alias,
@@ -925,8 +946,8 @@ class MockFlutterTemplateDatabase extends _i1.Mock
           #doWhenOpened,
           [fn],
         ),
-        returnValue: _i11.ifNotNull(
-              _i11.dummyValueOrNull<T>(
+        returnValue: _i12.ifNotNull(
+              _i12.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #doWhenOpened,
@@ -1196,8 +1217,8 @@ class MockFlutterTemplateDatabase extends _i1.Mock
           [action],
           {#requireNew: requireNew},
         ),
-        returnValue: _i11.ifNotNull(
-              _i11.dummyValueOrNull<T>(
+        returnValue: _i12.ifNotNull(
+              _i12.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #transaction,
@@ -1224,8 +1245,8 @@ class MockFlutterTemplateDatabase extends _i1.Mock
           #exclusively,
           [action],
         ),
-        returnValue: _i11.ifNotNull(
-              _i11.dummyValueOrNull<T>(
+        returnValue: _i12.ifNotNull(
+              _i12.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #exclusively,
@@ -1323,7 +1344,7 @@ class MockFlutterTemplateDatabase extends _i1.Mock
             amount,
           ],
         ),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.method(
             #$expandVar,

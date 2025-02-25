@@ -567,6 +567,26 @@ class MockMainNavigator extends _i1.Mock implements _i10.MainNavigator {
       ) as _i5.Future<void>);
 
   @override
+  _i5.Future<void> goToSettingsScreen() => (super.noSuchMethod(
+        Invocation.method(
+          #goToSettingsScreen,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> goToLightDarkModeScreen() => (super.noSuchMethod(
+        Invocation.method(
+          #goToLightDarkModeScreen,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
   void goBack() => super.noSuchMethod(
         Invocation.method(
           #goBack,

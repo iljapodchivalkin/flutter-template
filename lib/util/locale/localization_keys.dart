@@ -323,4 +323,9 @@ class LocalizationKeys {
   /// en:  **'Theme Mode'**
   static const themeMode = 'theme_mode';
 
+  /// Translations:
+  ///
+  /// en:  **'Select theme mode'**
+  static const selectThemeMode = 'select_theme_mode';
+
 }

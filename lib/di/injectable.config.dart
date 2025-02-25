@@ -65,6 +65,8 @@ import 'package:flutter_template/viewmodel/global/global_viewmodel.dart'
     as _i836;
 import 'package:flutter_template/viewmodel/license/license_viewmodel.dart'
     as _i880;
+import 'package:flutter_template/viewmodel/light_dark_mode/light_dark_mode_viewmodel.dart'
+    as _i965;
 import 'package:flutter_template/viewmodel/log_detail/log_detail_viewmodel.dart'
     as _i114;
 import 'package:flutter_template/viewmodel/login/login_viewmodel.dart' as _i681;
@@ -77,6 +79,8 @@ import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart'
     as _i1066;
 import 'package:flutter_template/viewmodel/permission/analytics_permission_viewmodel.dart'
     as _i527;
+import 'package:flutter_template/viewmodel/settings/settings_viewmodel.dart'
+    as _i313;
 import 'package:flutter_template/viewmodel/splash/splash_viewmodel.dart'
     as _i532;
 import 'package:flutter_template/viewmodel/todo/todo_add/todo_add_viewmodel.dart'
@@ -111,6 +115,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final registerModule = _$RegisterModule();
+    gh.factory<_i313.SettingsViewModel>(() => _i313.SettingsViewModel());
     await gh.singletonAsync<_i460.SharedPreferences>(
       () => registerModule.prefs(),
       preResolve: true,
@@ -236,6 +241,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i861.MainNavigator>(),
               gh<_i836.GlobalViewModel>(),
             ));
+    gh.factory<_i965.LightDarkModeViewModel>(() => _i965.LightDarkModeViewModel(
+          gh<_i861.MainNavigator>(),
+          gh<_i836.GlobalViewModel>(),
+        ));
     gh.lazySingleton<_i556.CombiningSmartInterceptor>(
         () => registerModule.provideCombiningSmartInterceptor(
               gh<_i1069.NetworkLogInterceptor>(),

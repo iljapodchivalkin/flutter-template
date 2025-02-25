@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/screen/light_dark_mode_screen/light_dark_mode_screen.dart';
 import 'package:flutter_template/screen/meals/favorite_meals_screen.dart';
 import 'package:flutter_template/screen/meals/meals_screen.dart';
-import 'package:flutter_template/screen/theme_mode/theme_mode_selector.dart';
-
 import 'package:flutter_template/util/locale/localization_keys.dart';
 
 
@@ -36,6 +35,6 @@ extension BottomNavigationExtension on BottomNavigationTab {
   Widget childBuilder(BuildContext context) => switch (this) {
         BottomNavigationTab.meals => const MealsScreen(),
         BottomNavigationTab.favorites => const FavoriteMealsScreen(),
-        BottomNavigationTab.settings => const ThemeModeSelectorScreen(),
+        BottomNavigationTab.settings => const LightDarkModeScreen(),
       };
 }

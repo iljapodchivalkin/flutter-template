@@ -62,5 +62,6 @@
   "meals_page": "Meals",
   "favorite_meals": "Favorite Meals",
   "settings": "Settings",
-  "theme_mode": "Theme Mode"
+  "theme_mode": "Theme Mode",
+  "select_theme_mode": "Select theme mode"
 }

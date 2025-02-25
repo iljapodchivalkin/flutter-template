@@ -7,14 +7,15 @@ import 'dart:async' as _i3;
 import 'dart:ui' as _i4;
 
 import 'package:flutter/material.dart' as _i7;
+import 'package:flutter_template/model/webservice/meal/meal.dart' as _i8;
 import 'package:flutter_template/repository/debug/debug_repository.dart' as _i5;
 import 'package:flutter_template/repository/locale/locale_repository.dart'
     as _i2;
 import 'package:flutter_template/repository/shared_prefs/local/local_storage.dart'
     as _i6;
 import 'package:flutter_template/util/locale/localization_overrides.dart'
-    as _i9;
-import 'package:flutter_template/util/theme/theme_config.dart' as _i8;
+    as _i10;
+import 'package:flutter_template/util/theme/theme_config.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -131,48 +132,48 @@ class MockLocalStorage extends _i1.Mock implements _i6.LocalStorage {
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<List<String>> getFavoriteMeals() => (super.noSuchMethod(
+  List<_i8.Meal> getFavoriteMeals() => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMeals,
           [],
         ),
-        returnValue: _i3.Future<List<String>>.value(<String>[]),
-      ) as _i3.Future<List<String>>);
+        returnValue: <_i8.Meal>[],
+      ) as List<_i8.Meal>);
 
   @override
-  _i3.Future<String?> getFavoriteMealById(String? id) => (super.noSuchMethod(
+  _i3.Future<_i8.Meal?> getFavoriteMealById(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMealById,
           [id],
         ),
-        returnValue: _i3.Future<String?>.value(),
-      ) as _i3.Future<String?>);
+        returnValue: _i3.Future<_i8.Meal?>.value(),
+      ) as _i3.Future<_i8.Meal?>);
 
   @override
-  _i3.Future<void> addMealToFavorites(String? id) => (super.noSuchMethod(
+  _i3.Future<List<_i8.Meal>> addMealToFavorites(_i8.Meal? meal) =>
+      (super.noSuchMethod(
         Invocation.method(
           #addMealToFavorites,
-          [id],
+          [meal],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<List<_i8.Meal>>.value(<_i8.Meal>[]),
+      ) as _i3.Future<List<_i8.Meal>>);
 
   @override
-  _i3.Future<void> deleteMealFromFavorites(String? id) => (super.noSuchMethod(
+  _i3.Future<List<_i8.Meal>> deleteMealFromFavorites(String? id) =>
+      (super.noSuchMethod(
         Invocation.method(
           #deleteMealFromFavorites,
           [id],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<List<_i8.Meal>>.value(<_i8.Meal>[]),
+      ) as _i3.Future<List<_i8.Meal>>);
 }
 
 /// A class which mocks [ThemeConfigUtil].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockThemeConfigUtil extends _i1.Mock implements _i8.ThemeConfigUtil {
+class MockThemeConfigUtil extends _i1.Mock implements _i9.ThemeConfigUtil {
   MockThemeConfigUtil() {
     _i1.throwOnMissingStub(this);
   }
@@ -197,7 +198,7 @@ class MockThemeConfigUtil extends _i1.Mock implements _i8.ThemeConfigUtil {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLocalizationOverrides extends _i1.Mock
-    implements _i9.LocalizationOverrides {
+    implements _i10.LocalizationOverrides {
   MockLocalizationOverrides() {
     _i1.throwOnMissingStub(this);
   }

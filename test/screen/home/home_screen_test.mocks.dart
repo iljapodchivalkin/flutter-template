@@ -7,6 +7,7 @@ import 'dart:async' as _i5;
 import 'dart:ui' as _i3;
 
 import 'package:flutter/material.dart' as _i4;
+import 'package:flutter_template/model/webservice/meal/meal.dart' as _i13;
 import 'package:flutter_template/model/webservice/todo/todo.dart' as _i10;
 import 'package:flutter_template/repository/shared_prefs/local/local_storage.dart'
     as _i12;
@@ -640,40 +641,40 @@ class MockLocalStorage extends _i1.Mock implements _i12.LocalStorage {
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<List<String>> getFavoriteMeals() => (super.noSuchMethod(
+  List<_i13.Meal> getFavoriteMeals() => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMeals,
           [],
         ),
-        returnValue: _i5.Future<List<String>>.value(<String>[]),
-      ) as _i5.Future<List<String>>);
+        returnValue: <_i13.Meal>[],
+      ) as List<_i13.Meal>);
 
   @override
-  _i5.Future<String?> getFavoriteMealById(String? id) => (super.noSuchMethod(
+  _i5.Future<_i13.Meal?> getFavoriteMealById(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMealById,
           [id],
         ),
-        returnValue: _i5.Future<String?>.value(),
-      ) as _i5.Future<String?>);
+        returnValue: _i5.Future<_i13.Meal?>.value(),
+      ) as _i5.Future<_i13.Meal?>);
 
   @override
-  _i5.Future<void> addMealToFavorites(String? id) => (super.noSuchMethod(
+  _i5.Future<List<_i13.Meal>> addMealToFavorites(_i13.Meal? meal) =>
+      (super.noSuchMethod(
         Invocation.method(
           #addMealToFavorites,
-          [id],
+          [meal],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i5.Future<List<_i13.Meal>>.value(<_i13.Meal>[]),
+      ) as _i5.Future<List<_i13.Meal>>);
 
   @override
-  _i5.Future<void> deleteMealFromFavorites(String? id) => (super.noSuchMethod(
+  _i5.Future<List<_i13.Meal>> deleteMealFromFavorites(String? id) =>
+      (super.noSuchMethod(
         Invocation.method(
           #deleteMealFromFavorites,
           [id],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i5.Future<List<_i13.Meal>>.value(<_i13.Meal>[]),
+      ) as _i5.Future<List<_i13.Meal>>);
 }

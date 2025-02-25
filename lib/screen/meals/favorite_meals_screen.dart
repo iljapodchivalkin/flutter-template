@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/di/injectable.dart';
 import 'package:flutter_template/viewmodel/meals/favorite_meals_viewmodel.dart';
-//import 'package:flutter_template/viewmodel/meals/meals_viewmodel.dart';
-//import 'package:flutter_template/widget/library/flutter_template_progress_indicator.dart';
 import 'package:flutter_template/widget/meal_info/meal_info_card.dart';
 import 'package:flutter_template/widget/provider/provider_widget.dart';
 
@@ -19,6 +17,7 @@ class _FavoriteMealsScreenState extends State<FavoriteMealsScreen> {
     return ProviderWidget<FavoriteMealsViewModel>(
       create: () => getIt()..init(),
       childBuilderWithViewModel: (context, viewModel, theme, localization) => Scaffold(
+        backgroundColor: theme.canvas,
         appBar: AppBar(
           title: Text(
             localization.appName,

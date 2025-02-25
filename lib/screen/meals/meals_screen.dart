@@ -37,10 +37,14 @@ class _MealsScreenState extends State<MealsScreen> {
     return ProviderWidget<MealsViewModel>(
       create: () => getIt()..init(),
       childBuilderWithViewModel: (context, viewModel, theme, localization) => Scaffold(
+        backgroundColor: theme.canvas,
         appBar: AppBar(
+          backgroundColor: theme.canvas,
           title: Text(
             localization.appName,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           actions: [
             Container(

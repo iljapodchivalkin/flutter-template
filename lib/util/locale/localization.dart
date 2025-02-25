@@ -377,6 +377,11 @@ class Localization {
   /// en:  **'Theme Mode'**
   String get themeMode => _t(LocalizationKeys.themeMode);
 
+  /// Translations:
+  ///
+  /// en:  **'Select theme mode'**
+  String get selectThemeMode => _t(LocalizationKeys.selectThemeMode);
+
   String getTranslation(String key, {List<dynamic>? args}) => _t(key, args: args ?? <dynamic>[]);
 
 }

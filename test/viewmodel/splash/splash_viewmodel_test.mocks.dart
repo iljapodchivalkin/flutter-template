@@ -6,9 +6,10 @@
 import 'dart:async' as _i3;
 
 import 'package:flutter/material.dart' as _i4;
-import 'package:flutter_template/navigator/onboarding_navigator.dart' as _i5;
+import 'package:flutter_template/model/webservice/meal/meal.dart' as _i5;
+import 'package:flutter_template/navigator/onboarding_navigator.dart' as _i6;
 import 'package:flutter_template/repository/remote_config/remote_config_repository.dart'
-    as _i6;
+    as _i7;
 import 'package:flutter_template/repository/shared_prefs/local/local_storage.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -67,49 +68,49 @@ class MockLocalStorage extends _i1.Mock implements _i2.LocalStorage {
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<List<String>> getFavoriteMeals() => (super.noSuchMethod(
+  List<_i5.Meal> getFavoriteMeals() => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMeals,
           [],
         ),
-        returnValue: _i3.Future<List<String>>.value(<String>[]),
-      ) as _i3.Future<List<String>>);
+        returnValue: <_i5.Meal>[],
+      ) as List<_i5.Meal>);
 
   @override
-  _i3.Future<String?> getFavoriteMealById(String? id) => (super.noSuchMethod(
+  _i3.Future<_i5.Meal?> getFavoriteMealById(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getFavoriteMealById,
           [id],
         ),
-        returnValue: _i3.Future<String?>.value(),
-      ) as _i3.Future<String?>);
+        returnValue: _i3.Future<_i5.Meal?>.value(),
+      ) as _i3.Future<_i5.Meal?>);
 
   @override
-  _i3.Future<void> addMealToFavorites(String? id) => (super.noSuchMethod(
+  _i3.Future<List<_i5.Meal>> addMealToFavorites(_i5.Meal? meal) =>
+      (super.noSuchMethod(
         Invocation.method(
           #addMealToFavorites,
-          [id],
+          [meal],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<List<_i5.Meal>>.value(<_i5.Meal>[]),
+      ) as _i3.Future<List<_i5.Meal>>);
 
   @override
-  _i3.Future<void> deleteMealFromFavorites(String? id) => (super.noSuchMethod(
+  _i3.Future<List<_i5.Meal>> deleteMealFromFavorites(String? id) =>
+      (super.noSuchMethod(
         Invocation.method(
           #deleteMealFromFavorites,
           [id],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<List<_i5.Meal>>.value(<_i5.Meal>[]),
+      ) as _i3.Future<List<_i5.Meal>>);
 }
 
 /// A class which mocks [OnboardingNavigator].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOnboardingNavigator extends _i1.Mock
-    implements _i5.OnboardingNavigator {
+    implements _i6.OnboardingNavigator {
   MockOnboardingNavigator() {
     _i1.throwOnMissingStub(this);
   }
@@ -129,7 +130,7 @@ class MockOnboardingNavigator extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRemoteConfigRepository extends _i1.Mock
-    implements _i6.RemoteConfigRepository {
+    implements _i7.RemoteConfigRepository {
   MockRemoteConfigRepository() {
     _i1.throwOnMissingStub(this);
   }
